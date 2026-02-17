@@ -1,0 +1,8 @@
+dataset,doi,openalex_id,publication_year,total_citations,years_with_data,latest_year
+MIMIC-I,10.1109/CIC.1996.542622,https://openalex.org/W2169713586,2002,242,14,2025
+MIMIC-II,10.1109/CIC.2002.1166854,https://openalex.org/W2122966699,2003,267,14,2025
+MIMIC-III,10.1038/sdata.2016.35,https://openalex.org/W2396881363,2016,7605,12,2026
+MIMIC-IV,10.1038/s41597-022-01899-x,https://openalex.org/W4313439128,2023,2166,5,2026
+UK-Biobank,10.1371/journal.pmed.1001779,https://openalex.org/W2082704080,2015,12231,14,2026
+OpenSAFELY,10.1038/s41586-020-2521-4,https://openalex.org/W3047144258,2020,6533,8,2026
+All-of-Us,10.1056/NEJMsr1809937,https://openalex.org/W4205170775,2019,2076,10,2026

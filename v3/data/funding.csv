@@ -1,0 +1,5 @@
+dataset,funding_usd,funding_source,funding_notes
+All MIMIC,14427192,NIH Reporter,Combined MIMIC-I/II/III/IV funding from NIH Reporter (NIBIB/NIGMS grants)
+UK Biobank,525546276.2,Wellcome Trust / MRC,413.8 million GBP converted at June 2024 rate
+OpenSAFELY,53715054.69,Multiple grants,"Sum of: Wellcome Trust (222097), MRC (MR/W016729/1, MR/V015757/1), MC_PC_20051, MC_PC_20058, MC_PC_20059, NIHR135559, COV-LT-0009, COV-LT2-0073"
+All of Us,2160000000,NIH,doi: 10.1056/NEJMsr1809937

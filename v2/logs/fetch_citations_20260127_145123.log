@@ -1,0 +1,77 @@
+2026-01-27 14:51:23,121 - INFO - ============================================================
+2026-01-27 14:51:23,121 - INFO - Starting citation data fetch from OpenAlex
+2026-01-27 14:51:23,121 - INFO - Datasets to process: 7
+2026-01-27 14:51:23,121 - INFO - ============================================================
+2026-01-27 14:51:23,121 - INFO - 
+Processing: MIMIC-I
+2026-01-27 14:51:23,121 - INFO - DOI: 10.1109/CIC.1996.542622
+2026-01-27 14:51:23,641 - INFO - Found work: A database to support development and evaluation o...
+2026-01-27 14:51:23,641 - INFO - Title: A database to support development and evaluation of intellig...
+2026-01-27 14:51:23,641 - INFO - Publication year: 2002
+2026-01-27 14:51:23,641 - INFO - Total citations: 242
+2026-01-27 14:51:23,641 - INFO - OpenAlex ID: https://openalex.org/W2169713586
+2026-01-27 14:51:23,652 - INFO - Saved: /Users/rahul/Power of Open Data/power-of-data-communities/v2/data/citations/mimic-i_citations.csv
+2026-01-27 14:51:23,652 - INFO - 
+Processing: MIMIC-II
+2026-01-27 14:51:23,652 - INFO - DOI: 10.1109/CIC.2002.1166854
+2026-01-27 14:51:23,849 - INFO - Found work: MIMIC II: a massive temporal ICU patient database ...
+2026-01-27 14:51:23,850 - INFO - Title: MIMIC II: a massive temporal ICU patient database to support...
+2026-01-27 14:51:23,850 - INFO - Publication year: 2003
+2026-01-27 14:51:23,850 - INFO - Total citations: 267
+2026-01-27 14:51:23,850 - INFO - OpenAlex ID: https://openalex.org/W2122966699
+2026-01-27 14:51:23,857 - INFO - Saved: /Users/rahul/Power of Open Data/power-of-data-communities/v2/data/citations/mimic-ii_citations.csv
+2026-01-27 14:51:23,857 - INFO - 
+Processing: MIMIC-III
+2026-01-27 14:51:23,857 - INFO - DOI: 10.1038/sdata.2016.35
+2026-01-27 14:51:24,050 - INFO - Found work: MIMIC-III, a freely accessible critical care datab...
+2026-01-27 14:51:24,050 - INFO - Title: MIMIC-III, a freely accessible critical care database...
+2026-01-27 14:51:24,050 - INFO - Publication year: 2016
+2026-01-27 14:51:24,050 - INFO - Total citations: 7605
+2026-01-27 14:51:24,050 - INFO - OpenAlex ID: https://openalex.org/W2396881363
+2026-01-27 14:51:24,054 - INFO - Saved: /Users/rahul/Power of Open Data/power-of-data-communities/v2/data/citations/mimic-iii_citations.csv
+2026-01-27 14:51:24,055 - INFO - 
+Processing: MIMIC-IV
+2026-01-27 14:51:24,055 - INFO - DOI: 10.1038/s41597-022-01899-x
+2026-01-27 14:51:24,276 - INFO - Found work: MIMIC-IV, a freely accessible electronic health re...
+2026-01-27 14:51:24,277 - INFO - Title: MIMIC-IV, a freely accessible electronic health record datas...
+2026-01-27 14:51:24,277 - INFO - Publication year: 2023
+2026-01-27 14:51:24,277 - INFO - Total citations: 2166
+2026-01-27 14:51:24,277 - INFO - OpenAlex ID: https://openalex.org/W4313439128
+2026-01-27 14:51:24,283 - INFO - Saved: /Users/rahul/Power of Open Data/power-of-data-communities/v2/data/citations/mimic-iv_citations.csv
+2026-01-27 14:51:24,284 - INFO - 
+Processing: UK-Biobank
+2026-01-27 14:51:24,284 - INFO - DOI: 10.1371/journal.pmed.1001779
+2026-01-27 14:51:24,509 - INFO - Found work: UK Biobank: An Open Access Resource for Identifyin...
+2026-01-27 14:51:24,509 - INFO - Title: UK Biobank: An Open Access Resource for Identifying the Caus...
+2026-01-27 14:51:24,509 - INFO - Publication year: 2015
+2026-01-27 14:51:24,509 - INFO - Total citations: 12231
+2026-01-27 14:51:24,509 - INFO - OpenAlex ID: https://openalex.org/W2082704080
+2026-01-27 14:51:24,514 - INFO - Saved: /Users/rahul/Power of Open Data/power-of-data-communities/v2/data/citations/uk-biobank_citations.csv
+2026-01-27 14:51:24,514 - INFO - 
+Processing: OpenSAFELY
+2026-01-27 14:51:24,515 - INFO - DOI: 10.1038/s41586-020-2521-4
+2026-01-27 14:51:24,707 - INFO - Found work: Factors associated with COVID-19-related death usi...
+2026-01-27 14:51:24,707 - INFO - Title: Factors associated with COVID-19-related death using OpenSAF...
+2026-01-27 14:51:24,707 - INFO - Publication year: 2020
+2026-01-27 14:51:24,707 - INFO - Total citations: 6533
+2026-01-27 14:51:24,707 - INFO - OpenAlex ID: https://openalex.org/W3047144258
+2026-01-27 14:51:24,712 - INFO - Saved: /Users/rahul/Power of Open Data/power-of-data-communities/v2/data/citations/opensafely_citations.csv
+2026-01-27 14:51:24,712 - INFO - 
+Processing: All-of-Us
+2026-01-27 14:51:24,712 - INFO - DOI: 10.1056/NEJMsr1809937
+2026-01-27 14:51:24,997 - INFO - Found work: The “All of Us” Research Program...
+2026-01-27 14:51:24,997 - INFO - Title: The “All of Us” Research Program...
+2026-01-27 14:51:24,997 - INFO - Publication year: 2019
+2026-01-27 14:51:24,997 - INFO - Total citations: 2076
+2026-01-27 14:51:24,998 - INFO - OpenAlex ID: https://openalex.org/W4205170775
+2026-01-27 14:51:25,004 - INFO - Saved: /Users/rahul/Power of Open Data/power-of-data-communities/v2/data/citations/all-of-us_citations.csv
+2026-01-27 14:51:25,007 - INFO - 
+Summary saved: /Users/rahul/Power of Open Data/power-of-data-communities/v2/data/citation_fetch_summary.csv
+2026-01-27 14:51:25,007 - INFO - 
+============================================================
+2026-01-27 14:51:25,007 - INFO - FETCH COMPLETE
+2026-01-27 14:51:25,007 - INFO - ============================================================
+2026-01-27 14:51:25,007 - INFO - Datasets processed: 7/7
+2026-01-27 14:51:25,007 - INFO - Log file: /Users/rahul/Power of Open Data/power-of-data-communities/v2/logs/fetch_citations_20260127_145123.log
+2026-01-27 14:51:25,007 - INFO - Output directory: /Users/rahul/Power of Open Data/power-of-data-communities/v2/data/citations
+2026-01-27 14:51:25,016 - INFO - Combined citations saved: /Users/rahul/Power of Open Data/power-of-data-communities/v2/data/all_citations_combined.csv

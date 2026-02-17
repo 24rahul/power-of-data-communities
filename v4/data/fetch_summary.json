@@ -1,0 +1,51 @@
+[
+  {
+    "dataset": "MIMIC-I",
+    "papers": 243,
+    "author_records": 947,
+    "countries": 44,
+    "fetch_time": "2026-01-27T22:56:50.156801"
+  },
+  {
+    "dataset": "MIMIC-II",
+    "papers": 267,
+    "author_records": 1315,
+    "countries": 39,
+    "fetch_time": "2026-01-27T22:56:53.176372"
+  },
+  {
+    "dataset": "MIMIC-III",
+    "papers": 7426,
+    "author_records": 42286,
+    "countries": 103,
+    "fetch_time": "2026-01-27T22:57:28.947240"
+  },
+  {
+    "dataset": "MIMIC-IV",
+    "papers": 1988,
+    "author_records": 13165,
+    "countries": 80,
+    "fetch_time": "2026-01-27T22:57:42.504933"
+  },
+  {
+    "dataset": "UK-Biobank",
+    "papers": 11803,
+    "author_records": 126115,
+    "countries": 134,
+    "fetch_time": "2026-01-27T22:59:07.341653"
+  },
+  {
+    "dataset": "OpenSAFELY",
+    "papers": 6256,
+    "author_records": 70043,
+    "countries": 148,
+    "fetch_time": "2026-01-27T22:59:53.722793"
+  },
+  {
+    "dataset": "All-of-Us",
+    "papers": 2066,
+    "author_records": 21483,
+    "countries": 91,
+    "fetch_time": "2026-01-27T23:00:13.058123"
+  }
+]

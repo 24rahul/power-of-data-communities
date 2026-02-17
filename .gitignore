@@ -1,0 +1,11 @@
+# Virtual environments
+env/
+
+# Manuscript writing
+manuscript/
+
+# Large data files (exceed GitHub 100MB limit) - use .json.gz versions instead
+v4/data/authors/opensafely_with_gender.json
+v4/data/authors/uk-biobank_with_gender.json
+v4/data/citing_papers/opensafely.json
+v4/data/citing_papers/uk-biobank.json

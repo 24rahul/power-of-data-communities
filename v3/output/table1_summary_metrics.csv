@@ -1,0 +1,5 @@
+Dataset,Funding ($M),Citations (Yr 3),Cit/$M (Yr 3),Citations (Yr 5),Cit/$M (Yr 5),Citations (Yr 7),Cit/$M (Yr 7)
+All MIMIC,14.4,"1,598",110.8,"3,241",224.6,"5,970",413.8
+UK Biobank,525.5,354,0.7,"1,509",2.9,"3,687",7.0
+OpenSAFELY,53.7,"4,125",76.8,"5,965",111.0,-,-
+All of Us,"2,160.0",130,0.1,527,0.2,"1,306",0.6

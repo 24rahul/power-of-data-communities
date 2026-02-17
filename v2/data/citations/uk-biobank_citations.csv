@@ -1,0 +1,15 @@
+year,citation_count,cumulative_citations,dataset,doi,openalex_id
+2012,1,1,UK-Biobank,10.1371/journal.pmed.1001779,https://openalex.org/W2082704080
+2014,2,3,UK-Biobank,10.1371/journal.pmed.1001779,https://openalex.org/W2082704080
+2015,26,29,UK-Biobank,10.1371/journal.pmed.1001779,https://openalex.org/W2082704080
+2016,105,134,UK-Biobank,10.1371/journal.pmed.1001779,https://openalex.org/W2082704080
+2017,243,377,UK-Biobank,10.1371/journal.pmed.1001779,https://openalex.org/W2082704080
+2018,449,826,UK-Biobank,10.1371/journal.pmed.1001779,https://openalex.org/W2082704080
+2019,663,1489,UK-Biobank,10.1371/journal.pmed.1001779,https://openalex.org/W2082704080
+2020,937,2426,UK-Biobank,10.1371/journal.pmed.1001779,https://openalex.org/W2082704080
+2021,1291,3717,UK-Biobank,10.1371/journal.pmed.1001779,https://openalex.org/W2082704080
+2022,1588,5305,UK-Biobank,10.1371/journal.pmed.1001779,https://openalex.org/W2082704080
+2023,1868,7173,UK-Biobank,10.1371/journal.pmed.1001779,https://openalex.org/W2082704080
+2024,2537,9710,UK-Biobank,10.1371/journal.pmed.1001779,https://openalex.org/W2082704080
+2025,2393,12103,UK-Biobank,10.1371/journal.pmed.1001779,https://openalex.org/W2082704080
+2026,120,12223,UK-Biobank,10.1371/journal.pmed.1001779,https://openalex.org/W2082704080

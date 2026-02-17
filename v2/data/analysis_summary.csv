@@ -1,0 +1,5 @@
+dataset,total_citations,years_active,citations_per_year,funding_usd,consent_model,reidentification_risk,citations_per_million_usd
+OpenSAFELY,6253.0,5,1250.6,53715055,NHS data governance,Low,116.4105668327064
+UK-Biobank,9582.0,13,737.0769230769231,525546276,Broad informed consent,High,18.23245723084526
+All-MIMIC,9672.0,22,439.6363636363636,14427192,IRB waiver,Moderate,670.4007266278844
+All-of-Us,1306.0,7,186.57142857142858,2160000000,Tiered informed consent,High,0.6046296296296296

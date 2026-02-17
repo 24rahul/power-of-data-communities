@@ -1,0 +1,5 @@
+dataset,start_year,years_active,total_citations,citations_per_year,funding_usd,citations_per_million_usd
+All MIMIC,1997,27,9672,358.2,14427192.0,670.4
+UK Biobank,2015,9,9582,1064.7,525546276.2,18.2
+OpenSAFELY,2019,5,6253,1250.6,53715054.69,116.4
+All of Us,2018,6,1306,217.7,2160000000.0,0.6
