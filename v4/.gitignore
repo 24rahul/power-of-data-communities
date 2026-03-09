@@ -1,0 +1,3 @@
+# Second-degree: only data/second_degree/*.json.gz are ground truth; ignore the rest
+data/second_degree_income/
+data/second_degree/_checkpoints/

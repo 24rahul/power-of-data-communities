@@ -1,9 +1,6 @@
 # Virtual environments
 env/
 
-# Manuscript writing
-manuscript/
-
 # OS / editor artifacts
 .DS_Store
 **/.DS_Store

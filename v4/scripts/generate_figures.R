@@ -3,6 +3,7 @@
 
 library(jsonlite)
 library(dplyr)
+library(tidyr)
 library(ggplot2)
 library(scales)
 library(patchwork)
@@ -477,58 +478,59 @@ cat("  Saved: figures/figure_3_4_combined_alt.png & .svg\n")
 
 # ===========================================================================
 # FIGURE 5: Second-Degree Citation Impact Distribution (Two Panels)
+# Second-degree analyses use only data/second_degree/*.json.gz as ground truth
+# (all-of-us, mimic-i/ii/iii/iv, opensafely, uk-biobank). No other sources.
 # ===========================================================================
 cat("Generating Figure 5 (second-degree papers)...\n")
 
 second_degree_dir <- file.path(base_dir, "data", "second_degree")
 
-load_second_degree <- function(name) {
+load_second_degree_df <- function(name) {
   path_gz <- file.path(second_degree_dir, paste0(name, ".json.gz"))
-  if (file.exists(path_gz)) {
-    fromJSON(path_gz, simplifyVector = FALSE)
-  } else {
-    stop("Second-degree file not found for: ", name)
-  }
+  if (!file.exists(path_gz)) stop("Second-degree file not found for: ", name)
+  d <- fromJSON(path_gz, simplifyVector = TRUE, flatten = TRUE)
+  papers <- d$papers
+  if (!is.data.frame(papers)) stop("Expected data.frame for papers in: ", name)
+  papers$cited_by_count <- as.integer(ifelse(is.na(papers$cited_by_count), 0L, papers$cited_by_count))
+  papers$year <- as.integer(papers$year)
+  papers
 }
 
-# Load second-degree papers (deduplicate MIMIC components)
-mimic_2nd <- list()
-mimic_2nd_ids <- character(0)
+# Load second-degree papers as data.frames (fast)
+cat("  Loading second-degree data (as data.frames)...\n")
+mimic_2nd_dfs <- list()
 for (comp in mimic_components) {
-  d <- load_second_degree(comp)
-  for (p in d$papers) {
-    if (!(p$id %in% mimic_2nd_ids)) {
-      mimic_2nd <- c(mimic_2nd, list(p))
-      mimic_2nd_ids <- c(mimic_2nd_ids, p$id)
-    }
-  }
+  cat("    Loading ", comp, "...\n")
+  mimic_2nd_dfs[[comp]] <- load_second_degree_df(comp)
 }
-cat("  MIMIC second-degree papers:", length(mimic_2nd), "\n")
+mimic_2nd_all <- bind_rows(mimic_2nd_dfs)
+mimic_2nd_all <- mimic_2nd_all[!duplicated(mimic_2nd_all$id), ]
+cat("  MIMIC second-degree papers:", nrow(mimic_2nd_all), "\n")
 
-ukb_2nd <- load_second_degree("uk-biobank")
-os_2nd  <- load_second_degree("opensafely")
-aou_2nd <- load_second_degree("all-of-us")
+cat("    Loading uk-biobank...\n")
+ukb_2nd_df <- load_second_degree_df("uk-biobank")
+cat("    Loading opensafely...\n")
+os_2nd_df  <- load_second_degree_df("opensafely")
+cat("    Loading all-of-us...\n")
+aou_2nd_df <- load_second_degree_df("all-of-us")
 
-cat("  UK-Biobank second-degree papers:", length(ukb_2nd$papers), "\n")
-cat("  OpenSAFELY second-degree papers:", length(os_2nd$papers), "\n")
-cat("  All-of-Us second-degree papers:", length(aou_2nd$papers), "\n")
+cat("  UK-Biobank second-degree papers:", nrow(ukb_2nd_df), "\n")
+cat("  OpenSAFELY second-degree papers:", nrow(os_2nd_df), "\n")
+cat("  All-of-Us second-degree papers:", nrow(aou_2nd_df), "\n")
 
+# all_citing is now a named list of data.frames
 all_citing <- list(
-  "MIMIC"      = mimic_2nd,
-  "UK-Biobank" = ukb_2nd$papers,
-  "OpenSAFELY" = os_2nd$papers,
-  "All-of-Us"  = aou_2nd$papers
+  "MIMIC"      = mimic_2nd_all,
+  "UK-Biobank" = ukb_2nd_df,
+  "OpenSAFELY" = os_2nd_df,
+  "All-of-Us"  = aou_2nd_df
 )
 
 # ---- Panel A: Citations per Paper vs Number of Papers ----
 fig5_raw_data <- bind_rows(lapply(names(all_citing), function(ds_name) {
-  papers <- all_citing[[ds_name]]
-
-  cites <- sapply(papers, function(p) {
-    v <- p$cited_by_count
-    if (is.null(v)) 0L else as.integer(v)
-  })
-  cites <- cites[cites >= 1]
+  df <- all_citing[[ds_name]]
+  cites <- df$cited_by_count
+  cites <- cites[!is.na(cites) & cites >= 1]
 
   max_cite <- max(cites)
   breaks <- 10^seq(0, log10(max_cite + 1), length.out = 40)
@@ -565,16 +567,13 @@ p5A <- ggplot(fig5_raw_data, aes(x = citations, y = count,
 
 # ---- Panel B: Funding-normalized ----
 fig5_norm_data <- bind_rows(lapply(names(all_citing), function(ds_name) {
-  papers <- all_citing[[ds_name]]
+  df <- all_citing[[ds_name]]
   cfg <- dataset_config %>% filter(dataset == ds_name)
   funding <- cfg$funding_m
 
-  cites <- sapply(papers, function(p) {
-    v <- p$cited_by_count
-    if (is.null(v)) 0L else as.integer(v)
-  })
+  cites <- df$cited_by_count
   cites_norm <- cites / funding
-  cites_norm <- cites_norm[cites_norm > 0]
+  cites_norm <- cites_norm[!is.na(cites_norm) & cites_norm > 0]
 
   max_val <- max(cites_norm)
   min_val <- min(cites_norm)
@@ -621,6 +620,385 @@ ggsave(file.path(figures_dir, "figure_5_second_degree.png"), p5,
 ggsave(file.path(figures_dir, "figure_5_second_degree.svg"), p5,
        width = 14, height = 5.5, bg = "white")
 cat("  Saved: figures/figure_5_second_degree.png & .svg\n")
+
+# ===========================================================================
+# RIPPLE ANALYSIS: Shared data preparation for Figures 6-9
+# ===========================================================================
+cat("Preparing ripple analysis data...\n")
+
+# Compute total citation mass per dataset for each layer
+ripple_summary <- bind_rows(lapply(names(all_datasets), function(ds_name) {
+  cfg <- dataset_config %>% filter(dataset == ds_name)
+  funding <- cfg$funding_m
+
+  fd_papers <- all_datasets[[ds_name]]
+  sd_df <- all_citing[[ds_name]]
+
+  fd_cites <- sum(sapply(fd_papers, function(p) {
+    v <- p$cited_by_count; if (is.null(v)) 0L else as.integer(v)
+  }))
+  sd_cites <- sum(sd_df$cited_by_count, na.rm = TRUE)
+
+  tibble(
+    dataset = ds_name,
+    fd_papers = length(fd_papers),
+    sd_papers = nrow(sd_df),
+    fd_cites = fd_cites,
+    sd_cites = sd_cites,
+    funding_m = funding,
+    fd_per_m = fd_cites / funding,
+    sd_per_m = sd_cites / funding,
+    ripple_ratio = if (fd_cites > 0) sd_cites / fd_cites else NA_real_
+  )
+}))
+ripple_summary$dataset <- factor(ripple_summary$dataset, levels = dataset_config$dataset)
+
+cat("  Ripple summary:\n")
+for (i in seq_len(nrow(ripple_summary))) {
+  r <- ripple_summary[i, ]
+  cat(sprintf("    %s: 1st=%s cites, 2nd=%s cites, ratio=%.1fx, per $1M: %s / %s\n",
+              r$dataset, format(r$fd_cites, big.mark = ","),
+              format(r$sd_cites, big.mark = ","), r$ripple_ratio,
+              format(round(r$fd_per_m), big.mark = ","),
+              format(round(r$sd_per_m), big.mark = ",")))
+}
+
+# Per-year cumulative data for both layers
+ripple_time <- bind_rows(lapply(names(all_datasets), function(ds_name) {
+  cfg <- dataset_config %>% filter(dataset == ds_name)
+  funding <- cfg$funding_m
+  launch <- cfg$launch_year
+
+  # First-degree: list-of-lists -> extract year + cited_by_count
+  build_cumulative_list <- function(papers, layer_name) {
+    years <- as.integer(vapply(papers, function(p) {
+      v <- p$year; if (is.null(v)) NA_integer_ else as.integer(v)
+    }, integer(1)))
+    cites <- as.integer(vapply(papers, function(p) {
+      v <- p$cited_by_count; if (is.null(v)) 0L else as.integer(v)
+    }, integer(1)))
+    keep <- !is.na(years)
+    years <- years[keep]; cites <- cites[keep]
+    if (length(years) == 0) return(tibble())
+
+    df <- tibble(year = years, cites = cites) %>%
+      group_by(year) %>% summarise(mass = sum(cites), .groups = "drop") %>%
+      arrange(year)
+
+    all_years <- tibble(year = seq(max(launch, min(df$year)), 2025))
+    df <- left_join(all_years, df, by = "year") %>%
+      mutate(mass = replace(mass, is.na(mass), 0),
+             cumulative = cumsum(mass),
+             dataset = ds_name, layer = layer_name,
+             funding_m = funding, cum_per_m = cumulative / funding)
+    df
+  }
+
+  # Second-degree: data.frame -> vectorised
+  build_cumulative_df <- function(sd_df, layer_name) {
+    sd_df <- sd_df[!is.na(sd_df$year), ]
+    if (nrow(sd_df) == 0) return(tibble())
+
+    df <- sd_df %>%
+      group_by(year) %>% summarise(mass = sum(cited_by_count, na.rm = TRUE), .groups = "drop") %>%
+      arrange(year)
+
+    all_years <- tibble(year = seq(max(launch, min(df$year)), 2025))
+    df <- left_join(all_years, df, by = "year") %>%
+      mutate(mass = replace(mass, is.na(mass), 0),
+             cumulative = cumsum(mass),
+             dataset = ds_name, layer = layer_name,
+             funding_m = funding, cum_per_m = cumulative / funding)
+    df
+  }
+
+  bind_rows(
+    build_cumulative_list(all_datasets[[ds_name]], "1st-degree"),
+    build_cumulative_df(all_citing[[ds_name]], "2nd-degree")
+  )
+}))
+ripple_time$dataset <- factor(ripple_time$dataset, levels = dataset_config$dataset)
+ripple_time$layer <- factor(ripple_time$layer, levels = c("2nd-degree", "1st-degree"))
+
+# ===========================================================================
+# FIGURE 6: Two-panel grouped bars (absolute + per $1M)
+# ===========================================================================
+cat("Generating Figure 6 (ripple bars)...\n")
+
+fig6_data <- ripple_summary %>%
+  tidyr::pivot_longer(cols = c(fd_cites, sd_cites),
+                      names_to = "layer", values_to = "cites") %>%
+  mutate(
+    layer = factor(ifelse(layer == "fd_cites", "1st-degree", "2nd-degree"),
+                   levels = c("1st-degree", "2nd-degree")),
+    cites_m = cites / 1e6,
+    cites_per_m = cites / funding_m
+  )
+
+layer_fills <- c("1st-degree" = "#5a9bd5", "2nd-degree" = "#ed7d31")
+
+p6A <- ggplot(fig6_data, aes(x = dataset, y = cites_m, fill = layer)) +
+  geom_col(position = position_dodge(width = 0.7), width = 0.6) +
+  scale_fill_manual(values = layer_fills) +
+  scale_y_continuous(labels = comma, expand = expansion(mult = c(0, 0.08))) +
+  labs(x = NULL, y = "Total Citations (millions)", tag = "A") +
+  theme_pub(base_size = 11) +
+  theme(legend.position = "none",
+        axis.text.x = element_text(size = rel(0.85)))
+
+p6B <- ggplot(fig6_data, aes(x = dataset, y = cites_per_m, fill = layer)) +
+  geom_col(position = position_dodge(width = 0.7), width = 0.6) +
+  scale_fill_manual(values = layer_fills) +
+  scale_y_continuous(labels = comma, expand = expansion(mult = c(0, 0.08))) +
+  labs(x = NULL, y = "Citations per $1M Funding", tag = "B") +
+  theme_pub(base_size = 11) +
+  theme(axis.text.x = element_text(size = rel(0.85)))
+
+p6 <- p6A + p6B +
+  plot_layout(ncol = 2, guides = "collect") &
+  theme(legend.position = "bottom",
+        legend.margin = margin(t = -4),
+        plot.tag = element_text(size = 14, face = "bold", hjust = 0, vjust = 1))
+
+ggsave(file.path(figures_dir, "figure_6_ripple_bars.png"), p6,
+       width = 12, height = 5.5, dpi = 600, bg = "white")
+ggsave(file.path(figures_dir, "figure_6_ripple_bars.svg"), p6,
+       width = 12, height = 5.5, bg = "white")
+cat("  Saved: figures/figure_6_ripple_bars.png & .svg\n")
+
+# ===========================================================================
+# FIGURE 7: Cumulative ripple over time per $1M (line chart)
+# ===========================================================================
+cat("Generating Figure 7 (ripple over time)...\n")
+
+fig7_data <- ripple_time %>% filter(year >= 2010)
+
+p7 <- ggplot(fig7_data, aes(x = year, y = cum_per_m,
+                              colour = dataset, linetype = layer)) +
+  geom_line(linewidth = 0.8) +
+  scale_colour_manual(values = dataset_colors, labels = legend_labels) +
+  scale_linetype_manual(values = c("1st-degree" = "dashed", "2nd-degree" = "solid"),
+                        labels = c("1st-degree" = "1st-degree (direct)", "2nd-degree" = "2nd-degree (ripple)")) +
+  scale_x_continuous(breaks = seq(2010, 2024, by = 2), limits = c(2010, 2026),
+                     expand = c(0.01, 0)) +
+  scale_y_continuous(labels = comma, expand = expansion(mult = c(0, 0.05))) +
+  labs(x = "Year", y = "Cumulative Citations per $1M Funding") +
+  guides(colour = guide_legend(order = 1), linetype = guide_legend(order = 2)) +
+  theme_pub(base_size = 12) +
+  theme(
+    legend.position = c(0.02, 0.98),
+    legend.justification = c(0, 1),
+    legend.key.width = unit(2, "lines"),
+    legend.spacing.y = unit(0.2, "lines")
+  )
+
+ggsave(file.path(figures_dir, "figure_7_ripple_over_time.png"), p7,
+       width = 8.5, height = 5.5, dpi = 600, bg = "white")
+ggsave(file.path(figures_dir, "figure_7_ripple_over_time.svg"), p7,
+       width = 8.5, height = 5.5, bg = "white")
+cat("  Saved: figures/figure_7_ripple_over_time.png & .svg\n")
+
+# ===========================================================================
+# FIGURE 8: Stacked iceberg bars per $1M
+# ===========================================================================
+cat("Generating Figure 8 (iceberg bars)...\n")
+
+fig8_data <- ripple_summary %>%
+  tidyr::pivot_longer(cols = c(fd_per_m, sd_per_m),
+                      names_to = "layer", values_to = "per_m") %>%
+  mutate(
+    layer = factor(ifelse(layer == "fd_per_m", "1st-degree", "2nd-degree"),
+                   levels = c("2nd-degree", "1st-degree")),
+    dataset = factor(dataset, levels = rev(levels(dataset)))
+  )
+
+# Lighter shades for 2nd-degree
+iceberg_fills <- c("1st-degree" = "#2c3e50", "2nd-degree" = "#85c1e9")
+
+# Multiplier labels positioned at the end of the full bar
+fig8_labels <- ripple_summary %>%
+  mutate(
+    total_per_m = fd_per_m + sd_per_m,
+    label = sprintf("%.0fx", ripple_ratio),
+    dataset = factor(dataset, levels = rev(levels(dataset)))
+  )
+
+p8 <- ggplot(fig8_data, aes(x = dataset, y = per_m, fill = layer)) +
+  geom_col(width = 0.6) +
+  geom_text(data = fig8_labels,
+            aes(x = dataset, y = total_per_m, label = label, fill = NULL),
+            hjust = -0.2, size = 3.5, fontface = "bold") +
+  scale_fill_manual(values = iceberg_fills,
+                    labels = c("2nd-degree" = "2nd-degree (ripple)",
+                               "1st-degree" = "1st-degree (direct)")) +
+  scale_y_continuous(labels = comma, expand = expansion(mult = c(0, 0.12))) +
+  coord_flip() +
+  labs(x = NULL, y = "Citations per $1M Funding") +
+  theme_pub(base_size = 12) +
+  theme(legend.position = "bottom",
+        legend.margin = margin(t = -2))
+
+ggsave(file.path(figures_dir, "figure_8_iceberg_bars.png"), p8,
+       width = 8, height = 4.5, dpi = 600, bg = "white")
+ggsave(file.path(figures_dir, "figure_8_iceberg_bars.svg"), p8,
+       width = 8, height = 4.5, bg = "white")
+cat("  Saved: figures/figure_8_iceberg_bars.png & .svg\n")
+
+# ===========================================================================
+# FIGURE 9: True iceberg chart -- 1st-degree above waterline, 2nd-degree below
+# ===========================================================================
+cat("Generating Figure 9 (iceberg over time)...\n")
+
+fig9_data <- ripple_time %>%
+  filter(year >= 2010) %>%
+  select(year, dataset, layer, cum_per_m)
+
+fig9_above <- fig9_data %>% filter(layer == "1st-degree")
+fig9_below <- fig9_data %>% filter(layer == "2nd-degree")
+
+# Top row: 1st-degree (direct) -- own y-axis, area grows upward
+p9_top <- ggplot(fig9_above, aes(x = year, y = cum_per_m)) +
+  geom_area(fill = "#2471a3", alpha = 0.9) +
+  geom_line(colour = "#1a5276", linewidth = 0.3) +
+  facet_wrap(~dataset, ncol = 4) +
+  scale_x_continuous(breaks = seq(2012, 2024, by = 4), expand = c(0.02, 0)) +
+  scale_y_continuous(labels = comma, expand = expansion(mult = c(0, 0.05)),
+                     position = "left") +
+  labs(x = NULL, y = "Direct (per $1M)") +
+  theme_pub(base_size = 10) +
+  theme(
+    strip.text = element_text(face = "bold", size = rel(1.0)),
+    strip.background = element_blank(),
+    panel.spacing = unit(0.8, "lines"),
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank(),
+    plot.margin = margin(8, 12, 0, 8)
+  )
+
+# Bottom row: 2nd-degree (ripple) -- own y-axis, area grows downward
+p9_bottom <- ggplot(fig9_below, aes(x = year, y = -cum_per_m)) +
+  geom_area(aes(y = -cum_per_m), fill = "#aed6f1", alpha = 0.8) +
+  geom_line(aes(y = -cum_per_m), colour = "#1a5276", linewidth = 0.3) +
+  facet_wrap(~dataset, ncol = 4) +
+  scale_x_continuous(breaks = seq(2012, 2024, by = 4), expand = c(0.02, 0)) +
+  scale_y_continuous(labels = function(x) comma(abs(x)),
+                     expand = expansion(mult = c(0.05, 0)),
+                     position = "left") +
+  labs(x = "Year", y = "Ripple (per $1M)") +
+  theme_pub(base_size = 10) +
+  theme(
+    strip.text = element_blank(),
+    panel.spacing = unit(0.8, "lines"),
+    plot.margin = margin(0, 12, 8, 8)
+  )
+
+max_direct <- max(fig9_above$cum_per_m, na.rm = TRUE)
+max_ripple <- max(fig9_below$cum_per_m, na.rm = TRUE)
+p9 <- p9_top / p9_bottom + plot_layout(heights = c(max_direct, max_ripple))
+
+total_h <- 3 + 3 * (max_ripple / max_direct)
+total_h <- min(max(total_h, 5), 12)
+
+ggsave(file.path(figures_dir, "figure_9_iceberg_over_time.png"), p9,
+       width = 14, height = total_h, dpi = 600, bg = "white")
+ggsave(file.path(figures_dir, "figure_9_iceberg_over_time.svg"), p9,
+       width = 14, height = total_h, bg = "white")
+cat("  Saved: figures/figure_9_iceberg_over_time.png & .svg\n")
+
+# ===========================================================================
+# Figure 10 — Disciplinary Diffusion
+# ===========================================================================
+cat("Generating Figure 10 (disciplinary diffusion)...\n")
+
+extract_topics <- function(ds_name, papers) {
+  rows <- list()
+  for (p in papers) {
+    yr <- p$year
+    if (is.null(yr) || is.na(yr)) next
+    topics <- p$topics
+    if (is.null(topics) || length(topics) == 0) next
+    top_topic <- topics[[1]]
+    field <- top_topic$field
+    domain <- top_topic$domain
+    if (is.null(field) || is.na(field)) next
+    rows[[length(rows) + 1]] <- data.frame(
+      dataset = ds_name, year = as.integer(yr),
+      field = field, domain = if (is.null(domain)) NA_character_ else domain,
+      stringsAsFactors = FALSE
+    )
+  }
+  bind_rows(rows)
+}
+
+topic_data <- bind_rows(lapply(names(all_datasets), function(ds_name) {
+  extract_topics(ds_name, all_datasets[[ds_name]])
+}))
+
+topic_data <- topic_data %>%
+  filter(year >= 2010, !is.na(field))
+
+top_fields <- topic_data %>%
+  count(field, sort = TRUE) %>%
+  head(8) %>%
+  pull(field)
+
+topic_data <- topic_data %>%
+  mutate(field_group = ifelse(field %in% top_fields, field, "Other"))
+
+field_year_raw <- topic_data %>%
+  count(dataset, year, field_group)
+
+year_totals <- field_year_raw %>%
+  group_by(dataset, year) %>%
+  summarise(total = sum(n), .groups = "drop")
+
+field_year <- field_year_raw %>%
+  inner_join(year_totals, by = c("dataset", "year")) %>%
+  filter(total >= 10) %>%
+  mutate(pct = n / total) %>%
+  select(-total)
+
+ds_order <- c("MIMIC", "UK-Biobank", "OpenSAFELY", "All-of-Us")
+field_year$dataset <- factor(field_year$dataset, levels = ds_order)
+
+palette_fields <- c(
+  "#2471a3", "#1abc9c", "#e74c3c", "#f39c12",
+  "#9b59b6", "#3498db", "#e67e22", "#27ae60",
+  "#bdc3c7"
+)
+n_groups <- length(unique(field_year$field_group))
+names(palette_fields) <- c(
+  sort(setdiff(unique(field_year$field_group), "Other")),
+  "Other"
+)[1:n_groups]
+
+p10 <- ggplot(field_year, aes(x = year, y = pct, fill = field_group)) +
+  geom_area(alpha = 0.85, colour = "white", linewidth = 0.2) +
+  facet_wrap(~dataset, ncol = 4) +
+  scale_x_continuous(breaks = seq(2012, 2024, by = 4), expand = c(0.02, 0)) +
+  scale_y_continuous(labels = percent_format(accuracy = 1),
+                     limits = c(0, 1),
+                     expand = expansion(mult = c(0, 0.02))) +
+  scale_fill_manual(values = palette_fields, name = "Field") +
+  labs(x = "Year",
+       y = "Share of Papers by Primary Research Field") +
+  theme_pub(base_size = 10) +
+  theme(
+    strip.text = element_text(face = "bold", size = rel(1.0)),
+    strip.background = element_blank(),
+    panel.spacing = unit(0.8, "lines"),
+    legend.position = "bottom",
+    legend.text = element_text(size = rel(0.7)),
+    legend.key.size = unit(0.4, "cm"),
+    legend.margin = margin(t = -4)
+  ) +
+  guides(fill = guide_legend(nrow = 2))
+
+ggsave(file.path(figures_dir, "figure_10_disciplinary_diffusion.png"), p10,
+       width = 14, height = 6, dpi = 600, bg = "white")
+ggsave(file.path(figures_dir, "figure_10_disciplinary_diffusion.svg"), p10,
+       width = 14, height = 6, bg = "white")
+cat("  Saved: figures/figure_10_disciplinary_diffusion.png & .svg\n")
 
 # ===========================================================================
 # PRISMA Flow Diagram

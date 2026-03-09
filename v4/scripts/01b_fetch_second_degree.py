@@ -2,6 +2,10 @@
 """
 01b - Fetch Second-Degree Citations (Ripple Effect)
 
+Produces the ground-truth second-degree data: data/second_degree/<dataset>.json.gz
+(all-of-us, mimic-i, mimic-ii, mimic-iii, mimic-iv, opensafely, uk-biobank).
+All second-degree analyses use only these .json.gz files; no other outputs.
+
 For each first-degree citing paper (from data/citing_papers/), fetches papers
 that cite IT but do NOT mention the original dataset in their abstract.
 These represent the invisible downstream influence of the datasets.
