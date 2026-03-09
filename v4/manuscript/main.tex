@@ -7,7 +7,7 @@
 \usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{amsmath}
-\usepackage{hyperref}
+\usepackage[numbers,sort&compress]{natbib}
 \usepackage{xcolor}
 \usepackage{caption}
 \usepackage{subcaption}
@@ -15,13 +15,13 @@
 \usepackage{array}
 \usepackage{textcomp}
 \usepackage{microtype}
-\usepackage{lineno}
 \usepackage{enumitem}
+\usepackage{float}
+\usepackage{hyperref}
 
 \setcounter{secnumdepth}{0}
 
 \doublespacing
-\linenumbers
 
 \date{}
 
@@ -92,8 +92,8 @@ Middle authors are listed in alphabetical order by last name.
 
 \vspace{1em}
 
-\noindent\textbf{Word count:} Abstract: 349; Main text: ${\sim}$3,800\\
-\noindent\textbf{Tables:} 2 \quad \textbf{Figures:} 3 \quad \textbf{Appendix tables:} 3 \quad \textbf{Appendix figures:} 3
+\noindent\textbf{Word count:} Abstract: 349; Main text: ${\sim}$4,800\\
+\noindent\textbf{Tables:} 2 \quad \textbf{Figures:} 3 \quad \textbf{Supplementary tables:} 5 \quad \textbf{Supplementary figures:} 3
 
 \newpage
 
@@ -109,13 +109,13 @@ Middle authors are listed in alphabetical order by last name.
 Open health data repositories receive billions in public funding, yet no systematic framework exists to evaluate their downstream scholarly impact, the equity of the research communities they cultivate, or the breadth of disciplines they reach. We introduce a two-degree citation methodology to quantify knowledge diffusion from open data, normalized by funding, and apply it to four major health data repositories.
 
 \noindent\textbf{Methods}\quad
-Using the OpenAlex bibliometric database (February 2026), we identified all first-degree citing publications (\textit{n}\,=\,30,049) and their second-degree citers (\textit{n}\,=\,485,396) for MIMIC (versions I--IV; retrospective EHR data; \$14.4M), UK Biobank (prospective cohort with genomics; \$525.5M), OpenSAFELY (federated EHR platform; \$53.7M), and All of Us (prospective national cohort with biobanking and community engagement; \$2,160M). We extracted author demographics (gender via Genderize.io, institutional country income via World Bank 2024 classifications) and research topics. Chi-square tests with odds ratios assessed demographic differences across repositories.
+Using the OpenAlex bibliometric database (January--February 2026), we identified all first-degree citing publications (\textit{n}\,=\,30,049) and their second-degree citers (\textit{n}\,=\,485,396) for MIMIC (versions I--IV; retrospective EHR data; \$14.4M), UK Biobank (prospective cohort with genomics; \$525.5M), OpenSAFELY (federated EHR platform; \$53.7M), and All of Us (prospective national cohort with biobanking and community engagement; \$2,160M). We extracted author demographics (gender via Genderize.io, institutional country income via World Bank 2024 classifications) and research topics. Chi-square tests with odds ratios assessed demographic differences across repositories.
 
 \noindent\textbf{Results}\quad
-Funding-normalized first-degree papers per \$1M ranged from 689 (MIMIC) to 1 (All of Us). Citation amplification from first- to second-degree was consistent across repositories (9.3--11.5$\times$). Author demographics differed significantly (\textit{p}\,$<$\,0.001): LMIC authorship ranged from 41.8\% (MIMIC) to 4.3\% (All of Us), while female authorship showed an inverse pattern (31.8\% to 43.2\%). Female authors were consistently underrepresented in senior (last-author) compared with first-author positions across all repositories. Differences in scope, design, and what funding covers limit direct comparisons.
+Funding-normalized first-degree papers per \$1M ranged from 689 (MIMIC) to 1 (All of Us), though these figures reflect total program investment---including community engagement and biobanking for prospective cohorts---not data-curation costs alone. Citation amplification from first- to second-degree was consistent across these four repositories (9.3--11.5$\times$). Author demographics differed significantly (\textit{p}\,$<$\,0.001): LMIC authorship ranged from 41.8\% (MIMIC) to 4.3\% (All of Us), while female authorship showed an inverse pattern (31.8\% to 43.2\%). Female authors were consistently underrepresented in senior (last-author) compared with first-author positions across all repositories. Differences in scope, design, and what funding covers limit direct comparisons.
 
 \noindent\textbf{Conclusions}\quad
-Open health data generates a consistent ${\sim}$10$\times$ indirect citation amplification beyond its direct users. However, citation-based metrics favor datasets adopted as computational benchmarks and cannot capture clinical translation, capacity building, or community engagement. The large differences in funding-normalized output partly reflect structural differences between retrospective databases and prospective cohorts. A complete assessment of open data investments requires examining the research communities and knowledge ecosystems these repositories cultivate, including who is producing the research and from where.
+Open health data generates a consistent ${\sim}$10$\times$ indirect citation amplification beyond its direct users. However, citation-based metrics capture scholarly activity rather than clinical translation, capacity building, or community engagement, and favor datasets adopted as computational benchmarks. The large differences in funding-normalized output partly reflect structural differences between retrospective databases and prospective cohorts. A complete assessment of open data investments requires examining the research communities and knowledge ecosystems these repositories cultivate, including who is producing the research, from where, and whether their participation translates into locally relevant knowledge production.
 
 \vspace{1em}
 
@@ -156,26 +156,30 @@ Open health data generates a consistent ${\sim}$10$\times$ indirect citation amp
 
 \newpage
 
+
 %% ============================================================
 \section{Introduction}
 \label{sec:introduction}
 %% ============================================================
 
 Open data sharing has become a cornerstone of biomedical research policy.
-Major funding agencies including the U.S. National Institutes of Health [1] and the Wellcome Trust [2] now mandate that publicly funded datasets be made accessible, reflecting a growing consensus that open data accelerates scientific discovery [3,4].
-This commitment has translated into substantial public investment: in health sciences alone, programs such as the All of Us Research Program (\$2.16 billion) [5], UK Biobank (\textsterling 413.8 million) [6], and the MIMIC critical care database (\$14.4 million) [7] span orders of magnitude in funding yet share the common goal of enabling secondary research.
+Major funding agencies including the U.S. National Institutes of Health \cite{nih2015sharing} and the Wellcome Trust \cite{wellcome2017openresearch} now mandate that publicly funded datasets be made accessible, reflecting a growing consensus that open data accelerates scientific discovery \cite{molloy2011opendata,wilkinson2016fair}.
+This commitment has translated into substantial public investment: in health sciences alone, programs such as the All of Us Research Program (\$2.16 billion) \cite{allofus2019}, UK Biobank (\textsterling 413.8 million) \cite{sudlow2015ukbiobank}, and the MIMIC critical care database (\$14.4 million) \cite{johnson2016mimic} span orders of magnitude in funding yet share the common goal of enabling secondary research.
 
 Despite these investments, there is no systematic framework for evaluating not only the downstream scholarly impact of open health data repositories, but also \textit{who} comprises the research communities they cultivate.
-Existing bibliometric evaluations typically count publications or first-degree citations --- papers that directly use a dataset --- but fail to capture the broader knowledge diffusion that occurs when those papers are themselves cited by others [8,9].
+Existing bibliometric evaluations typically count publications or first-degree citations --- papers that directly use a dataset --- but fail to capture the broader knowledge diffusion that occurs when those papers are themselves cited by others \cite{garfield1955citation,moed2005citation}.
 This indirect ``ripple'' effect is critical because the value of open data extends well beyond its immediate users: a clinical prediction model built on MIMIC may be cited by implementation science researchers, health economists, or computer scientists who never access the original data.
 
+We use ``knowledge diffusion'' to describe the propagation of scholarly citations through successive layers of citing publications. This construct captures the breadth and reach of a dataset's scholarly influence but has important limitations: not all citations represent equivalent knowledge contributions, and citation-based measures cannot distinguish between methodological benchmarking and practice-changing clinical research. Similarly, our equity analysis focuses primarily on representational equity---the presence and positioning of diverse researchers in authorship---rather than transformative equity, which would encompass whether open data reshapes research agendas, builds local capacity, or produces locally relevant knowledge \cite{couldry2019data}. This distinction, rooted in epistemic justice frameworks that examine whose knowledge counts and by what criteria \cite{fricker2007epistemic}, is critical for interpreting our findings.
+
 Equally important is the question of equity.
-Global disparities in scientific publishing are well documented [10], and open data has been proposed as a mechanism for leveling the playing field by providing researchers in low- and middle-income countries (LMICs) access to datasets they could not independently generate [11].
+Global disparities in scientific publishing are well documented \cite{lariviere2013bibliometrics}, and open data has been proposed as a mechanism for leveling the playing field by providing researchers in low- and middle-income countries (LMICs) access to datasets they could not independently generate \cite{celi2022sources}.
 Yet whether this promise is being realized --- and whether open data attracts diverse researchers into positions of intellectual leadership, not merely participation --- remains an empirical question.
+Addressing this question requires distinguishing between access to data and the power to shape what research gets done with it.
 Understanding \textit{who} does the research, \textit{where} they are located, and \textit{what positions} they hold in the authorship hierarchy is as important as counting how many papers a dataset generates.
 
 In this study, we introduce a two-degree citation methodology that traces both direct citations (first-degree: papers that use a dataset) and indirect citations (second-degree: papers citing those first-degree papers) to quantify knowledge diffusion from open data, normalized by cumulative program funding.
-We apply this framework to four major open health data repositories spanning different designs, maturity stages, and funding scales: MIMIC (versions I--IV; retrospective electronic health records) [7,12], UK Biobank (a prospective population cohort with genomic data) [6,13], OpenSAFELY (a federated analytics platform for primary care records) [14], and All of Us (a prospective national cohort emphasizing participant diversity) [5,15].
+We apply this framework to four major open health data repositories spanning different designs, maturity stages, and funding scales: MIMIC (versions I--IV; retrospective electronic health records) \cite{johnson2016mimic,johnson2023mimic}, UK Biobank (a prospective population cohort with genomic data) \cite{sudlow2015ukbiobank,bycroft2018ukbiobank}, OpenSAFELY (a federated analytics platform for primary care records) \cite{williamson2020opensafely}, and All of Us (a prospective national cohort emphasizing participant diversity) \cite{allofus2019,haendel2021nhgri}.
 
 Our objectives are threefold: (1) to quantify funding-normalized scholarly output at both degrees of citation, (2) to characterize the demographics of the research communities each repository has cultivated --- including gender representation, geographic diversity, and authorship position --- and (3) to examine how equity patterns vary across repositories that serve fundamentally different research communities.
 
@@ -196,27 +200,28 @@ No human participants were involved, and no ethics approval was required.
 We selected four open health data repositories representing distinct models of data sharing in biomedicine (Table~\ref{tab:overview}).
 
 \textbf{MIMIC} (Medical Information Mart for Intensive Care) is a family of freely accessible critical care databases originating from Beth Israel Deaconess Medical Center.
-MIMIC-I was first released in 1997 [16], with subsequent versions (II, III, IV) expanding in scope and detail [7,12].
+MIMIC-I was first released in 1997 \cite{saul1992mimic}, with subsequent versions (II, III, IV) expanding in scope and detail \cite{johnson2016mimic,johnson2023mimic}.
 MIMIC is a retrospective database built from routinely collected EHR data; its total estimated funding is \$14.4 million.
+MIMIC's patient population originates from a single academic medical center in Boston (Beth Israel Deaconess Medical Center), representing a predominantly insured, urban U.S. population.
 
-\textbf{UK Biobank} is a prospective cohort study of approximately 500,000 participants aged 40--69, with data available for approved research since 2015 [6].
-The resource includes genotyping, imaging, and longitudinal health outcomes, with cumulative funding of approximately \$525.5 million [13].
+\textbf{UK Biobank} is a prospective cohort study of approximately 500,000 participants aged 40--69, with data available for approved research since 2015 \cite{sudlow2015ukbiobank}.
+The resource includes genotyping, imaging, and longitudinal health outcomes, with cumulative funding of approximately \$525.5 million \cite{bycroft2018ukbiobank}.
 
-\textbf{OpenSAFELY} is a secure, federated analytics platform providing access to de-identified primary care records of approximately 58 million patients in England [14].
-Launched during the COVID-19 pandemic in 2020, it has received approximately \$53.7 million in grant funding [17].
+\textbf{OpenSAFELY} is a secure, federated analytics platform providing access to de-identified primary care records of approximately 58 million patients in England \cite{williamson2020opensafely}.
+Launched during the COVID-19 pandemic in 2020, it has received approximately \$53.7 million in grant funding \cite{goldacre2022opensafely}.
 
-\textbf{All of Us} is a longitudinal research program of the U.S. National Institutes of Health aiming to enroll one million or more participants reflecting the diversity of the United States [5].
-Its funding encompasses participant recruitment, biobanking, genomic sequencing, return of results, and community engagement infrastructure, totaling approximately \$2.16 billion [15].
+\textbf{All of Us} is a longitudinal research program of the U.S. National Institutes of Health aiming to enroll one million or more participants reflecting the diversity of the United States \cite{allofus2019}.
+Its funding encompasses participant recruitment, biobanking, genomic sequencing, return of results, and community engagement infrastructure, totaling approximately \$2.16 billion \cite{haendel2021nhgri}.
 
 These repositories differ fundamentally in what their funding covers.
-MIMIC's budget supports curation of data that already exists in hospital systems; All of Us's budget funds prospective recruitment, biospecimen collection, community advisory boards, and return of genomic results.
-These structural differences are essential context for interpreting funding-normalized comparisons.
+MIMIC's budget supports curation of data that already exists in hospital systems; All of Us's budget funds prospective recruitment, biospecimen collection, community advisory boards, participant engagement, and return of genomic results---investments in community trust and participant diversity that are assets not captured by citation metrics.
+These structural differences are essential context for interpreting funding-normalized comparisons; a normalization restricted to data-curation costs alone would substantially narrow the gap between repositories.
 
 \subsection{Citation Data Collection}
 \label{sec:citation-collection}
 
-Using the OpenAlex bibliometric database [18], we identified all publications citing each repository's primary works (retrieved February 2026).
-For MIMIC, we combined citations across all four versions (I--IV) and deduplicated by OpenAlex work identifier.
+Using the OpenAlex bibliometric database \cite{priem2022openalex}, we identified all publications citing each repository's primary works (first-degree data retrieved January 2026; second-degree data retrieved February 2026).
+For MIMIC, we pooled citations across all four versions (I--IV); second-degree papers were deduplicated by OpenAlex work identifier.
 These citing publications constitute the \textit{first-degree} corpus.
 We then retrieved all publications citing these first-degree papers, forming the \textit{second-degree} corpus.
 In total, we identified 30,049 first-degree and 485,396 second-degree publications.
@@ -224,17 +229,19 @@ In total, we identified 30,049 first-degree and 485,396 second-degree publicatio
 \subsection{Author Demographics}
 \label{sec:demographics}
 
-Author gender was inferred from first names using the Genderize.io API [19], which returns probabilistic gender assignments based on a global name--gender database.
+Author gender was inferred from first names using the Genderize.io API \cite{genderize}, which returns probabilistic gender assignments based on a global name--gender database.
 The identification rate exceeded 98\% across all repositories.
 
 Institutional country was determined from author affiliation metadata in OpenAlex.
-Countries were classified as high-income (HIC) or low- and middle-income (LMIC) using the World Bank 2024 income classification [20].
+Countries were classified as high-income (HIC) or low- and middle-income (LMIC) using the World Bank 2024 income classification \cite{worldbank2024}.
 HIC--LMIC collaboration was defined as any publication with authors from both income groups.
 
 We analyzed authorship positions separately: first authors (typically the primary researcher), last authors (typically the senior or supervising investigator), and middle authors.
 This distinction is important because first- and last-author positions carry different implications for intellectual leadership, career advancement, and mentorship roles within research teams.
 
-Name-based gender inference has known limitations: it performs poorly for some cultural contexts, conflates gender identity with name-associated gender, and cannot capture non-binary identities.
+Name-based gender inference has known limitations: it performs systematically worse for East African, South and Southeast Asian, and Arabic names \cite{santamaria2018genderize}, conflates gender identity with name-associated gender, and cannot capture non-binary identities.
+Since MIMIC's LMIC authorship concentrates in regions where Genderize.io performs less reliably, gender estimates for LMIC authors may be less accurate than the headline identification rate ($>$98\%) suggests.
+Identification rates by World Bank region are reported in the Supplementary Materials (Supplementary Table~4).
 Institutional affiliation may not reflect nationality or career trajectory.
 These proxies are standard in large-scale bibliometric analyses but should be interpreted as approximations.
 
@@ -243,7 +250,7 @@ These proxies are standard in large-scale bibliometric analyses but should be in
 
 OpenAlex assigns each publication a hierarchical topic classification.
 We extracted the primary field assignment for each first-degree publication and computed field proportions by repository and year.
-Full disciplinary diffusion results are reported in the Appendix (eFigure~1).
+Full disciplinary diffusion results are reported in the Supplementary Materials (Supplementary Figure~1).
 
 \subsection{Statistical Analysis}
 \label{sec:statistical}
@@ -254,7 +261,9 @@ Odds ratios (OR) with 95\% confidence intervals were computed for all $2 \times 
 The significance level was set at $\alpha = 0.05$.
 
 Funding-normalized metrics were computed by dividing raw counts by total program funding in millions of U.S. dollars.
-The citation amplification ratio was defined as the ratio of total second-degree citation mass to total first-degree citation mass for each repository.
+The citation amplification ratio was defined as the ratio of total second-degree citation mass (sum of all citations received by second-degree papers) to total first-degree citation mass (sum of all citations received by first-degree papers) for each repository.
+
+This analysis does not account for self-citation or citation network effects (e.g., MIMIC papers disproportionately citing other MIMIC papers), which are known confounds in bibliometric analyses. For MIMIC, first-degree papers across all four versions (I--IV) were combined (pooled); second-degree papers were deduplicated across versions. A version-stratified analysis using paper-count ratios is provided in the Supplementary Materials (Supplementary Table~5).
 
 \subsection{Patient and Public Involvement}
 
@@ -275,31 +284,31 @@ When normalized by funding, the variation was far more pronounced: MIMIC generat
 
 This pattern amplified at the second degree.
 MIMIC's 118,904 second-degree papers translated to 8,257 per \$1 million, versus 2,314 (OpenSAFELY), 405 (UK Biobank), and 14 (All of Us).
-The cumulative second-degree citation mass per \$1 million was 141,752 for MIMIC and 177 for All of Us, an approximately 800-fold difference.
+The cumulative second-degree citation mass per \$1 million was 141,752 for MIMIC and 177 for All of Us---an approximately 800-fold difference that largely reflects the structural incomparability of these programs' costs rather than intrinsic efficiency (see Discussion).
 
-Despite this wide variation, the citation amplification ratio was remarkably consistent: 9.3$\times$ (MIMIC), 11.5$\times$ (UK Biobank), 10.8$\times$ (OpenSAFELY), and 10.8$\times$ (All of Us).
-This ${\sim}$10$\times$ multiplier indicates that the indirect scholarly footprint of open data is approximately an order of magnitude larger than its direct footprint, regardless of repository type or funding scale.
+Despite this wide variation, the citation amplification ratio was relatively consistent across these four repositories: 9.3$\times$ (MIMIC), 11.5$\times$ (UK Biobank), 10.8$\times$ (OpenSAFELY), and 10.8$\times$ (All of Us).
+This ${\sim}$10$\times$ multiplier suggests that the indirect scholarly activity generated by open data may be approximately an order of magnitude larger than its direct footprint, though this exploratory finding across four repositories warrants validation across additional datasets before being treated as a general principle.
 
 Figure~\ref{fig:cumulative} shows the cumulative growth in first-degree papers over time, and Figure~\ref{fig:ripple} presents funding-normalized first- and second-degree counts side by side.
 Figure~\ref{fig:iceberg} visualizes the cumulative funding-normalized citation trajectory as an ``iceberg'' plot, with first-degree citations above and second-degree citations below, illustrating the persistent ${\sim}$10$\times$ amplification ratio across all repositories.
 
 \input{tables/table1}
 
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{figures/fig1_cumulative_citations.png}
 \caption{Cumulative first-degree publications over time for each repository (monthly resolution). Year of first data availability is shown in parentheses.}
 \label{fig:cumulative}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{figures/fig2_funding_normalized_ripple.png}
 \caption{First-degree and second-degree citation counts, absolute (left) and normalized per \$1 million in funding (right).}
 \label{fig:ripple}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{figures/fig3_iceberg_over_time.png}
 \caption{Cumulative funding-normalized citation trajectories. Top panel: first-degree (direct) citations per \$1M. Bottom panel: second-degree (indirect) citations per \$1M. Panel heights are proportional to maximum values. Note different y-axis scales.}
@@ -342,9 +351,12 @@ This first-to-last-author gradient indicates that while women are increasingly r
 
 \subsubsection{Intersectional Patterns}
 
-Intersectional analysis (eTable~2) revealed that LMIC-affiliated female authors had higher representation within the LMIC subgroup than HIC-affiliated female authors had within the HIC subgroup.
-For example, among MIMIC first authors, 36.4\% of LMIC authors were female compared with 30.0\% of HIC authors.
-This pattern held across all repositories, suggesting that the LMIC research workforce engaging with open health data is, if anything, more gender-balanced than its HIC counterpart.
+Intersectional analysis (Supplementary Table~2) revealed a notable pattern: in three of the four repositories, LMIC-affiliated female authors had higher representation within the LMIC subgroup than HIC-affiliated female authors had within the HIC subgroup, across most authorship positions.
+For example, among MIMIC first authors, 36.4\% of LMIC authors were female compared with 30.0\% of HIC authors; among MIMIC last authors, 31.9\% of LMIC authors were female versus 23.9\% of HIC authors.
+Similar patterns held for UK Biobank (44.7\% vs.\ 40.8\% for first authors) and OpenSAFELY (46.2\% vs.\ 42.6\%).
+All of Us did not follow this pattern (40.0\% vs.\ 43.1\% for first authors), though the small LMIC sample sizes (\textit{n}\,=\,30--45 per position) preclude reliable comparisons.
+This finding suggests that the equity narratives around geography and gender are not simply additive: research communities furthest from traditional academic medicine centers may be producing more gender-balanced research.
+The LMIC research workforce engaging with open health data is, in three of the four repositories studied, more gender-balanced than its HIC counterpart---a finding that complicates simple deficit narratives about Global South research capacity.
 
 \input{tables/table2}
 
@@ -365,6 +377,8 @@ The most consequential finding may not be the citation counts but rather the com
 MIMIC's research ecosystem is distinctive: 41.8\% LMIC authorship, researchers from 105 countries, and --- crucially --- LMIC researchers holding first- and last-author positions at rates comparable to their overall representation.
 This suggests that MIMIC has cultivated a research community where LMIC investigators exercise genuine intellectual leadership, not merely participation.
 
+However, this representational equity must be interpreted cautiously. MIMIC's patient population originates from a single academic medical center in Boston, representing a predominantly insured, urban U.S. population. LMIC researchers building clinical prediction models or decision tools on this data are working with a population that differs radically from the patients they serve---different disease burdens, healthcare infrastructure, and care delivery patterns. Intellectual leadership in authorship hierarchies does not automatically translate into locally relevant knowledge. High LMIC authorship may also partly reflect computational benchmarking: computer science researchers in India, China, and Brazil developing machine learning methods using MIMIC as a convenient testbed rather than producing clinical decision tools for their local contexts.
+
 Several structural features may explain this pattern.
 MIMIC is freely accessible with no financial barrier, requires only an online training course for credentialing, and operates on data small enough to be downloaded and analyzed on a personal computer.
 The extensive datathon program, which has engaged researchers at events in over 30 countries, provides hands-on mentorship and entry into collaborative networks.
@@ -374,24 +388,26 @@ By contrast, All of Us's 4.3\% LMIC authorship reflects the program's design as 
 Its data use agreements, institutional requirements, and analysis platform may present barriers for international researchers.
 UK Biobank and OpenSAFELY, while drawing from more countries, also show relatively modest LMIC authorship (22.9\% and 17.4\%), consistent with their UK-centric data and governance structures.
 
-However, high LMIC authorship on a dominant dataset does not automatically indicate equitable participation.
-LMIC researchers using MIMIC produce research legible to Global North journals, which benefits their careers but may not translate into equivalent investment in building open datasets within their own health systems [11].
-True equity would include LMIC-generated datasets achieving comparable citation amplification.
+High LMIC authorship on a dominant dataset does not automatically indicate equitable participation.
+LMIC researchers using MIMIC produce research legible to Global North journals---a dynamic that benefits their careers but may reinforce, rather than challenge, existing hierarchies of knowledge production. The more fundamental question is whether LMIC researchers' engagement with MIMIC translates into equivalent investment in building open datasets within their own health systems \cite{celi2022sources}.
+True equity would include LMIC-generated datasets achieving comparable citation amplification. What would it mean for a critical care database from Kigali or Chennai to generate a research community as vibrant as MIMIC's?
 
-\subsection{The Gender Gap: A Disciplinary, Not Data Access, Problem}
+\subsection{The Gender Gap: Disciplinary Composition and Community Agency}
 
 MIMIC's low female authorship (31.8\%) initially appears paradoxical given its otherwise equitable access model.
-However, MIMIC is the only repository whose primary citing field is computer science (43.1\% of papers; see eFigure~1) rather than medicine.
-The gender gap in computer science authorship is well documented [10,23], and MIMIC's female authorship rate is consistent with the field's broader demographics rather than a barrier intrinsic to the dataset.
+MIMIC is the only repository whose primary citing field is computer science (43.1\% of papers; see Supplementary Figure~1) rather than medicine, and the gender gap in computer science authorship is well documented \cite{lariviere2013bibliometrics,lerchenmueller2018gender}.
+MIMIC's female authorship rate is thus partly consistent with the field's broader demographics rather than a barrier intrinsic to the dataset.
+However, MIMIC is not a passive repository but an actively cultivated ecosystem---its datathon program, credentialing community, and mentorship networks represent levers that could be pulled to improve gender balance, for instance through targeted recruitment of female participants in datathons or mentorship pairings.
 
-The persistent senior authorship gap --- women were 5--11 percentage points less represented in last-author than first-author positions across all four repositories --- mirrors well-documented patterns in biomedicine [10,24,25].
-This gap transcends individual datasets and reflects structural inequities in career advancement, mentorship, and access to independent funding.
-Interventions at the repository level (e.g., modifying data access) are unlikely to address this; systemic changes in academic promotion and mentorship structures are needed.
+The persistent senior authorship gap --- women were approximately 5--11 percentage points less represented in last-author than first-author positions across all four repositories (4.9--10.9 percentage points) --- mirrors well-documented patterns in biomedicine \cite{lariviere2013bibliometrics,sugimoto2023equity,vaduganathan2018gender}.
+This gap transcends individual datasets and reflects structural inequities in career advancement, mentorship, and access to independent funding, though repository communities with active mentorship programs have some agency to address it.
+
+Notably, the intersectional analysis (Supplementary Table~2) complicates a simple disciplinary explanation: LMIC-affiliated female authors are more gender-balanced than their HIC counterparts in three of the four repositories studied, suggesting that the pathways through which researchers engage with open data may interact with gender representation in ways that merit further investigation.
 
 \subsection{Funding Efficiency in Context}
 
 The approximately 800-fold difference in funding-normalized second-degree citations between MIMIC and All of Us requires careful contextualization.
-MIMIC retrospectively curates data that already exists; All of Us is building a prospective cohort from the ground up, with costs encompassing recruitment, biobanking, genomic sequencing, and community engagement [5,15].
+MIMIC retrospectively curates data that already exists; All of Us is building a prospective cohort from the ground up, with costs encompassing recruitment, biobanking, genomic sequencing, and community engagement \cite{allofus2019,haendel2021nhgri}.
 UK Biobank and OpenSAFELY occupy intermediate positions.
 
 The funding-normalized comparison measures citation output per dollar of total program investment, not per dollar of data-curation cost.
@@ -400,6 +416,16 @@ We present these comparisons as one lens, not a definitive ranking.
 
 MIMIC's high citation count also partly reflects its adoption as a machine learning benchmark --- analogous to ImageNet in computer vision.
 When a dataset's primary use shifts from clinical research to computational benchmarking, citation counts may reflect methodological convenience rather than clinical knowledge production.
+
+The 800-fold difference in funding-normalized citations risks being misappropriated in funding discussions to argue against community-engaged programs like All of Us. This would be a misreading of our findings. All of Us's investments in community advisory boards, participant engagement, return of health information, and recruitment of underrepresented populations are precisely the kinds of equity-building investments this paper argues are essential---they should be treated as assets, not costs to be minimized. Future work could attempt to normalize by data-curation-only costs, stripping out participant engagement, biobanking, and return-of-results expenditures, which would substantially narrow the funding-normalized gap.
+
+\subsection{Data Provenance and Epistemic Justice}
+
+The equity dimensions of open data extend beyond who publishes to include whose data, collected under what conditions, and governed by whom. MIMIC's clinical data originates from one Boston hospital; its adoption as a global benchmark means that researchers worldwide are building clinical tools calibrated to a patient population that may not reflect their local contexts. This mismatch between data provenance and research application raises questions of epistemic justice: whose health experiences are encoded as ``ground truth,'' and whose are treated as deviations from that norm \cite{fricker2007epistemic}?
+
+Community governance represents another underexamined dimension. Who decides what variables get collected, whose priorities shape dataset design, and how can community members---including patients whose data is shared---influence research agendas? Current open data repositories operate on a spectrum from researcher-controlled (MIMIC) to community-partnered (All of Us), but none fully embody community governance in dataset design and research prioritization. Emerging frameworks for Indigenous data sovereignty and the CARE principles (Collective benefit, Authority to control, Responsibility, Ethics) offer models for more participatory approaches to health data governance \cite{hudson2023indigenous}.
+
+Our bibliometric methodology cannot capture these governance dimensions. Developing governance-sensitive metrics---measuring community participation in dataset design, local capacity built, or policy documents produced---would complement citation-based assessments and provide a more complete picture of open data's value.
 
 \subsection{Strengths and Limitations}
 
@@ -410,6 +436,10 @@ First, citation metrics capture scholarly activity but not clinical impact, poli
 Second, funding figures are approximate and not strictly comparable; we could not decompose them into data-curation versus non-data costs.
 Third, gender inference from first names may misclassify individuals with culturally specific names and cannot capture non-binary identities.
 Fourth, our two-degree methodology captures breadth but not depth of knowledge diffusion: a methods paper and a practice-changing clinical trial both generate second-degree citations but differ fundamentally in impact.
+Fifth, Genderize.io has documented performance disparities across regions, performing less reliably for East African, South and Southeast Asian, and Arabic names (Supplementary Table~4), which may differentially affect gender estimates for LMIC authors.
+Sixth, our analysis does not account for self-citation or citation network effects, which could inflate citation counts for more established datasets.
+Seventh, the ${\sim}$10$\times$ citation amplification ratio is based on only four repositories and should be considered an exploratory finding.
+Eighth, we did not disaggregate citation amplification by research type (e.g., clinical studies vs.\ computational benchmarking vs.\ methodological papers), which would reveal whether different research modes drive different amplification patterns.
 Finally, the four repositories were selected for diversity, not randomly sampled.
 
 
@@ -418,14 +448,16 @@ Finally, the four repositories were selected for diversity, not randomly sampled
 \label{sec:conclusion}
 %% ============================================================
 
-Open health data generates a consistent ${\sim}$10$\times$ indirect citation amplification beyond its direct users, a ratio that held across four repositories spanning three orders of magnitude in funding.
+Open health data generates a consistent ${\sim}$10$\times$ indirect citation amplification beyond its direct users, a ratio that held across four repositories spanning over two orders of magnitude in funding.
 The wide variation in funding-normalized output partly reflects structural differences between retrospective databases and prospective cohorts, not intrinsic efficiency.
 
 The composition of the research communities these repositories cultivate is as important as their citation counts.
 MIMIC's research ecosystem demonstrates that a low-cost, freely accessible dataset with intentional community building can attract a globally diverse research community in which LMIC investigators exercise genuine intellectual leadership.
 Conversely, the persistent gender gap in senior authorship across all repositories reflects disciplinary and structural inequities that data access policies alone cannot address.
 
-A complete assessment of open data investments must move beyond citation counting to examine who is producing the research, from where, in what positions, and to what ends.
+MIMIC's high LMIC representation in authorship, while a meaningful marker of representational equity, is a necessary but not sufficient condition for transformative equity in global health research. A complete assessment requires examining whether open data use translates into locally relevant research, local dataset creation, and capacity building---outcomes not captured by citation metrics. Non-citation measures such as datathon outputs informing local clinical practice, policy documents generated, and locally governed datasets created should complement bibliometric evaluations.
+
+A complete assessment of open data investments must move beyond citation counting to examine who is producing the research, from where, in what positions, with whose data, and to what ends.
 The datathons, credentialing processes, community partnerships, and capacity-building programs that surround these repositories may ultimately matter as much as the data themselves.
 
 
@@ -469,136 +501,11 @@ LAC is the principal investigator of the MIMIC project. All other authors declar
 This study is a bibliometric analysis of publicly available citation data and did not involve human participants. No ethics approval was required.
 
 %% ============================================================
-%% REFERENCES (Vancouver / numbered style)
+%% REFERENCES (Vancouver / numbered style via natbib + BibTeX)
 %% ============================================================
 
-\begin{thebibliography}{25}
-
-\bibitem{nih2015sharing}
-National Institutes of Health.
-NIH Data Sharing Policy and Implementation Guidance.
-2023. Available from: \url{https://sharing.nih.gov/data-management-and-sharing-policy}.
-
-\bibitem{wellcome2017openresearch}
-Wellcome Trust.
-Open Research at Wellcome.
-2017. Available from: \url{https://wellcome.org/what-we-do/our-work/open-research}.
-
-\bibitem{molloy2011opendata}
-Molloy JC.
-The Open Knowledge Foundation: open data means better science.
-\textit{PLOS Biol.} 2011;9(12):e1001195.
-
-\bibitem{wilkinson2016fair}
-Wilkinson MD, Dumontier M, Aalbersberg IJ, et al.
-The FAIR Guiding Principles for scientific data management and stewardship.
-\textit{Sci Data.} 2016;3:160018.
-
-\bibitem{allofus2019}
-The All of Us Research Program Investigators.
-The All of Us Research Program.
-\textit{N Engl J Med.} 2019;381(7):668--676.
-
-\bibitem{sudlow2015ukbiobank}
-Sudlow C, Gallacher J, Allen N, et al.
-UK Biobank: an open access resource for identifying the causes of a wide range of complex diseases of middle and old age.
-\textit{PLOS Med.} 2015;12(3):e1001779.
-
-\bibitem{johnson2016mimic}
-Johnson AEW, Pollard TJ, Shen L, et al.
-MIMIC-III, a freely accessible critical care database.
-\textit{Sci Data.} 2016;3:160035.
-
-\bibitem{garfield1955citation}
-Garfield E.
-Citation indexes for science: a new dimension in documentation through association of ideas.
-\textit{Science.} 1955;122(3159):108--111.
-
-\bibitem{moed2005citation}
-Moed HF.
-\textit{Citation Analysis in Research Evaluation.}
-Springer; 2005.
-
-\bibitem{lariviere2013bibliometrics}
-Larivi\`ere V, Ni C, Gingras Y, Cronin B, Sugimoto CR.
-Bibliometrics: global gender disparities in science.
-\textit{Nature.} 2013;504:211--213.
-
-\bibitem{celi2022sources}
-Celi LA, Cellini J, Charpignon M-L, et al.
-Sources of bias in artificial intelligence that perpetuate healthcare disparities --- a global review.
-\textit{PLOS Digit Health.} 2022;1(3):e0000022.
-
-\bibitem{johnson2023mimic}
-Johnson AEW, Bulgarelli L, Shen L, et al.
-MIMIC-IV, a freely accessible electronic health record dataset.
-\textit{Sci Data.} 2023;10:1.
-
-\bibitem{bycroft2018ukbiobank}
-Bycroft C, Freeman C, Petkova D, et al.
-The UK Biobank resource with deep phenotyping and genomic data.
-\textit{Nature.} 2018;562:203--209.
-
-\bibitem{williamson2020opensafely}
-Williamson EJ, Walker AJ, Bhaskaran K, et al.
-Factors associated with COVID-19-related death using OpenSAFELY.
-\textit{Nature.} 2020;584:430--436.
-
-\bibitem{haendel2021nhgri}
-Ramirez AH, Sulieman L, Schlueter DJ, et al.
-The All of Us Research Program: data quality, utility, and diversity.
-\textit{Patterns.} 2022;3(8):100570.
-
-\bibitem{saul1992mimic}
-Moody GB, Mark RG.
-A database to support development and evaluation of intelligent intensive care monitoring.
-\textit{Comput Cardiol.} 1996:657--660.
-
-\bibitem{goldacre2022opensafely}
-Goldacre B, Morley J.
-Better, broader, safer: using health data for research and analysis.
-UK Department of Health and Social Care; 2022.
-
-\bibitem{priem2022openalex}
-Priem J, Piwowar H, Orr R.
-OpenAlex: a fully-open index of scholarly works, authors, venues, institutions, and concepts.
-arXiv:2205.01833. 2022.
-
-\bibitem{genderize}
-Genderize.io.
-Determine the gender of a name. Available from: \url{https://genderize.io}. Accessed January 2026.
-
-\bibitem{worldbank2024}
-World Bank.
-World Bank Country and Lending Groups.
-2024. Available from: \url{https://datahelpdesk.worldbank.org/knowledgebase/articles/906519}.
-
-\bibitem{piwowar2018open}
-Piwowar H, Priem J, Larivi\`ere V, et al.
-The state of OA: a large-scale analysis of the prevalence and impact of Open Access articles.
-\textit{PeerJ.} 2018;6:e4375.
-
-\bibitem{colavizza2020citation}
-Colavizza G, Hrber I, Molloy J, Schiuma R, Tartari V.
-The citation advantage of linking publications to research data.
-\textit{PLOS ONE.} 2020;15(4):e0230416.
-
-\bibitem{lerchenmueller2018gender}
-Lerchenmueller MJ, Sorenson O, Jena AB.
-Gender differences in how scientists present the importance of their research: observational study.
-\textit{BMJ.} 2018;363:k4305.
-
-\bibitem{sugimoto2023equity}
-Sugimoto CR, Larivi\`ere V.
-\textit{Equity for Women in Science.}
-Harvard University Press; 2023.
-
-\bibitem{vaduganathan2018gender}
-Vaduganathan M, Mantha S.
-Gender differences in authorship of original research in cardiovascular medicine.
-\textit{Circ Cardiovasc Qual Outcomes.} 2018;11(3):e004780.
-
-\end{thebibliography}
+\bibliographystyle{unsrtnat}
+\bibliography{references}
 
 \newpage
 
@@ -609,32 +516,26 @@ Gender differences in authorship of original research in cardiovascular medicine
 \appendix
 \setcounter{table}{0}
 \setcounter{figure}{0}
-\renewcommand{\thetable}{e\arabic{table}}
-\renewcommand{\thefigure}{e\arabic{figure}}
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\thefigure}{S\arabic{figure}}
 
-\section*{Appendix}
+\section*{Supplementary Materials}
 
-\subsection*{eFigure 1. Disciplinary Diffusion Over Time}
-
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{figures/fig5_disciplinary_diffusion.png}
 \caption{Disciplinary composition of first-degree publications over time by repository. Each color represents a research field as classified by OpenAlex. Only year--repository combinations with $\geq$10 papers are shown. MIMIC is the only repository whose primary citing field is computer science (43.1\%) rather than medicine, reflecting its widespread adoption as a machine learning benchmark. UK Biobank is dominated by biochemistry, genetics, and molecular biology. OpenSAFELY and All of Us remain concentrated within medicine.}
 \label{fig:disciplines}
 \end{figure}
 
-\subsection*{eFigure 2. Citation Distributions}
-
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{../figures/figure_2_new.png}
 \caption{Citation distributions for first-degree publications. Panel A: Raw citation counts by paper rank (log-log scale). Panel B: Funding-normalized citations per \$1M by paper rank (log-log scale). MIMIC papers are more highly cited per dollar of funding across the full rank distribution.}
 \label{fig:citedist}
 \end{figure}
 
-\subsection*{eFigure 3. Second-Degree Citation Distributions}
-
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{../figures/figure_5_second_degree.png}
 \caption{Citation distributions for second-degree publications. Panel A: Raw citation distribution (number of papers at each citation count). Panel B: Funding-normalized citation distribution. The distributions are broadly similar across repositories, consistent with the ${\sim}$10$\times$ amplification constant.}
@@ -642,9 +543,7 @@ Gender differences in authorship of original research in cardiovascular medicine
 \end{figure}
 
 
-\subsection*{eTable 1. Pairwise Statistical Comparisons (MIMIC vs.\ Other Repositories)}
-
-\begin{table}[htbp]
+\begin{table}[H]
 \centering
 \caption{Pairwise chi-square tests comparing MIMIC with each other repository for LMIC representation and gender distribution. All \textit{p}-values are Bonferroni-corrected ($n = 3$).}
 \label{etab:pairwise}
@@ -667,11 +566,9 @@ MIMIC vs.\ All of Us & Gender & 884.3 & $<$0.001 & 0.106 & 0.61 (0.59--0.63) \\
 \end{table}
 
 
-\subsection*{eTable 2. Intersectional Analysis: Gender by Income Classification and Authorship Position}
-
-\begin{table}[htbp]
+\begin{table}[H]
 \centering
-\caption{Proportion of female authors within HIC and LMIC subgroups, by authorship position. Female representation is consistently higher among LMIC authors than HIC authors across all repositories and positions.}
+\caption{Proportion of female authors within HIC and LMIC subgroups, by authorship position. Female representation is higher among LMIC authors than HIC authors in three of the four repositories (MIMIC, UK Biobank, OpenSAFELY); All of Us shows mixed results with small LMIC sample sizes.}
 \label{etab:intersectional}
 \small
 \begin{tabular}{@{}llcccc@{}}
@@ -700,9 +597,7 @@ All of Us & First & 745 & 43.1 & 30 & 40.0 \\
 \end{table}
 
 
-\subsection*{eTable 3. Unique Author Demographics}
-
-\begin{table}[htbp]
+\begin{table}[H]
 \centering
 \caption{Unique author demographics by repository. Authors are deduplicated by OpenAlex author ID within each dataset.}
 \label{etab:unique}
@@ -727,6 +622,58 @@ Ever last author (\textit{n}) & 5,853 & 5,071 & 4,289 & 1,271 \\
 
 \vspace{4pt}
 {\footnotesize ``Ever first/last author'' = unique authors who held that position on at least one publication citing the repository. MIMIC's unique LMIC authorship (47.3\%) exceeds its record-level rate (41.8\%) because LMIC authors appear on fewer papers on average.}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\caption{Genderize.io gender identification rates (\%) by World Bank region and repository. Rates represent the proportion of unique authors for whom Genderize.io returned a gender assignment. For UK Biobank, OpenSAFELY, and All of Us, authors are deduplicated by OpenAlex ID; for MIMIC, counts are summed across versions (see footnote). South Asia consistently shows the lowest identification rates across repositories.}
+\label{etab:genderize}
+\small
+\begin{tabular}{@{}lcccccc@{}}
+\toprule
+\textbf{Region} & \textbf{MIMIC} & \textbf{UK Biobank} & \textbf{OpenSAFELY} & \textbf{All of Us} \\
+& \textit{n} (\%) & \textit{n} (\%) & \textit{n} (\%) & \textit{n} (\%) \\
+\midrule
+North America & 8,321 (99.2) & 11,975 (99.2) & 7,772 (99.4) & 8,320 (99.2) \\
+Europe \& Central Asia & 5,935 (98.9) & 16,304 (99.1) & 18,300 (98.4) & 1,920 (99.5) \\
+East Asia \& Pacific & 15,135 (98.7) & 16,571 (98.9) & 5,362 (98.6) & 1,124 (99.4) \\
+Middle East \& North Africa & 741 (99.1) & 449 (99.6) & 2,002 (99.5) & 99 (100.0) \\
+Latin America \& Caribbean & 492 (99.4) & 377 (98.9) & 2,234 (99.3) & 163 (99.4) \\
+South Asia & 1,019 (96.8) & 318 (97.8) & 1,084 (97.0) & 71 (95.8) \\
+Sub-Saharan Africa & 92 (97.8) & 138 (98.6) & 744 (98.8) & 103 (99.0) \\
+Unknown/Unclassified & 4,881 (98.2) & 5,651 (98.6) & 6,943 (97.5) & 1,438 (99.0) \\
+\midrule
+Total & 36,616 (98.7) & 51,783 (99.0) & 44,441 (98.5) & 13,238 (99.2) \\
+\bottomrule
+\end{tabular}
+
+\vspace{4pt}
+{\footnotesize MIMIC counts sum unique authors within each version (I--IV); authors appearing in multiple versions may be counted more than once (total of 36,616 vs.\ 33,573 cross-version deduplicated unique authors). Identification rates are unaffected by this overcounting. Identification rates for South Asia (95.8--97.8\%) are systematically lower than other regions, consistent with known limitations of name-based gender inference for South and Southeast Asian names \cite{santamaria2018genderize}.}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\caption{Citation counts and amplification ratios by MIMIC version. Earlier versions show higher amplification ratios due to longer citation accumulation periods; MIMIC-IV's lower ratio reflects its recent 2022 launch.}
+\label{etab:mimicversions}
+\small
+\begin{tabular}{@{}llrrr@{}}
+\toprule
+\textbf{Version} & \textbf{Launch Year} & \textbf{First-Degree} & \textbf{Second-Degree} & \textbf{Amplification} \\
+& & \textbf{Papers} & \textbf{Papers} & \textbf{Ratio} \\
+\midrule
+MIMIC-I & 1997 & 243 & 5,688 & 23.4$\times$ \\
+MIMIC-II & 2003 & 267 & 6,576 & 24.6$\times$ \\
+MIMIC-III & 2016 & 7,426 & 107,043 & 14.4$\times$ \\
+MIMIC-IV & 2022 & 1,988 & 7,398 & 3.7$\times$ \\
+\midrule
+Total (combined) & --- & 9,924 & 126,705 & 12.8$\times$ \\
+\bottomrule
+\end{tabular}
+
+\vspace{4pt}
+{\footnotesize Papers are deduplicated within each version but the combined total sums across versions without cross-version deduplication (126,705). The main-text Table~1 additionally deduplicates second-degree papers across versions (118,904) and uses citation-mass ratios rather than paper-count ratios, yielding the lower amplification figure (9.3$\times$).}
 \end{table}
 
 
