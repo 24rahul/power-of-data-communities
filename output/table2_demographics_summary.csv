@@ -1,0 +1,5 @@
+Dataset,Total Papers,Total Authors,Female % (of identified),Unique Countries,LMIC % (of classified),HIC-LMIC Collab %
+MIMIC,9924,57713,31.8,105,41.8,11.8
+UK-Biobank,11803,126115,38.6,134,22.9,16.4
+OpenSAFELY,6256,70043,41.7,148,17.4,12.1
+All-of-Us,2066,21483,43.2,91,4.3,8.4

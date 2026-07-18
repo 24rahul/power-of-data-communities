@@ -1,0 +1,75 @@
+2026-01-27 23:07:35,493 - INFO - ============================================================
+2026-01-27 23:07:35,494 - INFO - Gender Inference using Genderize.io
+2026-01-27 23:07:35,494 - INFO - ============================================================
+2026-01-27 23:07:35,494 - INFO - Log file: /Users/rahul/Power of Open Data/power-of-data-communities/v4/logs/gender_inference_20260127_230735.log
+2026-01-27 23:07:35,494 - INFO - Max API requests: 10000
+2026-01-27 23:07:35,494 - INFO - API key: ff8573b1...
+2026-01-27 23:07:35,518 - INFO - Loaded cache with 28464 names
+2026-01-27 23:07:35,520 - INFO - ============================================================
+2026-01-27 23:07:35,520 - INFO - Phase 1: Collecting unique first names from all datasets
+2026-01-27 23:07:35,520 - INFO - ============================================================
+2026-01-27 23:07:35,520 - INFO - Reading: all-of-us.json
+2026-01-27 23:07:35,832 - INFO -   5122 unique first names from 2066 papers
+2026-01-27 23:07:35,846 - INFO - Reading: mimic-i.json
+2026-01-27 23:07:35,863 - INFO -   553 unique first names from 243 papers
+2026-01-27 23:07:35,864 - INFO - Reading: mimic-ii.json
+2026-01-27 23:07:35,883 - INFO -   669 unique first names from 267 papers
+2026-01-27 23:07:35,884 - INFO - Reading: mimic-iii.json
+2026-01-27 23:07:36,693 - INFO -   10332 unique first names from 7426 papers
+2026-01-27 23:07:36,720 - INFO - Reading: mimic-iv.json
+2026-01-27 23:07:36,924 - INFO -   4898 unique first names from 1988 papers
+2026-01-27 23:07:36,933 - INFO - Reading: opensafely.json
+2026-01-27 23:07:37,962 - INFO -   12520 unique first names from 6256 papers
+2026-01-27 23:07:38,007 - INFO - Reading: uk-biobank.json
+2026-01-27 23:07:40,137 - INFO -   13974 unique first names from 11803 papers
+2026-01-27 23:07:40,237 - INFO - 
+Total unique first names across all datasets: 27895
+2026-01-27 23:07:40,237 - INFO - ============================================================
+2026-01-27 23:07:40,237 - INFO - Phase 2: Inferring genders via genderize.io API
+2026-01-27 23:07:40,237 - INFO - ============================================================
+2026-01-27 23:07:40,242 - INFO - Total unique names: 27895
+2026-01-27 23:07:40,243 - INFO - Already cached: 27242
+2026-01-27 23:07:40,243 - INFO - Need to lookup: 653
+2026-01-27 23:07:57,297 - INFO - Progress: 500/653 names (76%)
+2026-01-27 23:08:02,814 - INFO - Final cache saved: 29117 names
+2026-01-27 23:08:02,815 - INFO - ============================================================
+2026-01-27 23:08:02,815 - INFO - Phase 3: Applying gender labels to datasets
+2026-01-27 23:08:02,815 - INFO - ============================================================
+2026-01-27 23:08:02,815 - INFO - Processing: all-of-us.json
+2026-01-27 23:08:04,402 - INFO -   Saved: all-of-us_with_gender.json
+2026-01-27 23:08:04,403 - INFO -   Gender distribution: male=11488, female=8961, unknown=1034
+2026-01-27 23:08:04,425 - INFO - Processing: mimic-i.json
+2026-01-27 23:08:04,566 - INFO -   Saved: mimic-i_with_gender.json
+2026-01-27 23:08:04,566 - INFO -   Gender distribution: male=691, female=174, unknown=82
+2026-01-27 23:08:04,570 - INFO - Processing: mimic-ii.json
+2026-01-27 23:08:04,730 - INFO -   Saved: mimic-ii_with_gender.json
+2026-01-27 23:08:04,730 - INFO -   Gender distribution: male=876, female=298, unknown=141
+2026-01-27 23:08:04,731 - INFO - Processing: mimic-iii.json
+2026-01-27 23:08:07,505 - INFO -   Saved: mimic-iii_with_gender.json
+2026-01-27 23:08:07,505 - INFO -   Gender distribution: male=27362, female=12493, unknown=2431
+2026-01-27 23:08:07,535 - INFO - Processing: mimic-iv.json
+2026-01-27 23:08:08,752 - INFO -   Saved: mimic-iv_with_gender.json
+2026-01-27 23:08:08,752 - INFO -   Gender distribution: male=8029, female=4534, unknown=602
+2026-01-27 23:08:08,762 - INFO - Processing: opensafely.json
+2026-01-27 23:08:12,372 - INFO -   Saved: opensafely_with_gender.json
+2026-01-27 23:08:12,372 - INFO -   Gender distribution: male=35937, female=26610, unknown=7496
+2026-01-27 23:08:12,422 - INFO - Processing: uk-biobank.json
+2026-01-27 23:08:19,823 - INFO -   Saved: uk-biobank_with_gender.json
+2026-01-27 23:08:19,823 - INFO -   Gender distribution: male=72967, female=46623, unknown=6525
+2026-01-27 23:08:19,920 - INFO - 
+------------------------------------------------------------
+2026-01-27 23:08:19,920 - INFO - TOTAL across all datasets:
+2026-01-27 23:08:19,920 - INFO -   Male: 157350
+2026-01-27 23:08:19,920 - INFO -   Female: 99693
+2026-01-27 23:08:19,920 - INFO -   Unknown: 18311
+2026-01-27 23:08:19,921 - INFO - 
+============================================================
+2026-01-27 23:08:19,921 - INFO - SUMMARY
+2026-01-27 23:08:19,921 - INFO - ============================================================
+2026-01-27 23:08:19,921 - INFO - Total names in cache: 29117
+2026-01-27 23:08:19,924 - INFO -   Male names: 16295
+2026-01-27 23:08:19,924 - INFO -   Female names: 11822
+2026-01-27 23:08:19,924 - INFO -   Unknown: 1000
+2026-01-27 23:08:19,924 - INFO - 
+Cache saved to: /Users/rahul/Power of Open Data/power-of-data-communities/v4/data/authors/gender_cache.json
+2026-01-27 23:08:19,924 - INFO - Log saved to: /Users/rahul/Power of Open Data/power-of-data-communities/v4/logs/gender_inference_20260127_230735.log

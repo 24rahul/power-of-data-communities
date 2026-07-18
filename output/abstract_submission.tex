@@ -1,0 +1,88 @@
+\documentclass[11pt]{article}
+\usepackage[margin=0.7in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.4em}
+\pagestyle{empty}
+
+\begin{document}
+
+\begin{center}
+\textbf{\large The Power of Open Data: Impact, Equity, and Knowledge\\[3pt]
+Diffusion Across Four Major Health Data Repositories}
+
+\vspace{0.4em}
+
+{\footnotesize
+Rahul Gorijavolu$^{1,2,3,4,*}$,
+Miguel \'Angel Armengol de la Hoz$^{5}$,
+Catherine Bielick$^{6}$,
+Daniel K. Ebner$^{7}$,
+Amelia Fiske$^{8}$,
+Jack Gallifant$^{9,10}$,
+Judy W. Gichoya$^{11}$,
+Nura Izath$^{12}$,
+Kaushik Madapati$^{1,2,13}$,
+Lucas McCullum$^{14,15}$,
+Vishnu Nair$^{3}$,
+Milit S Patel$^{2,16}$,
+Anna E. Premo$^{17}$,
+Alice Rangel Teixeira$^{18}$,
+Christopher M. Sauer$^{2,19,20}$,
+Leo A. Celi$^{2,21,22}$
+}
+
+\vspace{0.2em}
+
+{\scriptsize\setlength{\baselineskip}{7pt}
+$^{1}$AI for Responsible, Generalizable, and Open Surgical (ARGOS) Research Group, Baltimore, MD, USA\enspace
+$^{2}$Laboratory for Computational Physiology, MIT, Cambridge, MA, USA\enspace
+$^{3}$Johns Hopkins University School of Medicine, Baltimore, MD, USA\enspace
+$^{4}$Whiting School of Engineering, Johns Hopkins University, Baltimore, MD, USA\enspace
+$^{5}$Big Data Department, PMC, Fundaci\'on Progreso y Salud, Seville, Spain\enspace
+$^{6}$Division of Infectious Diseases, Beth Israel Deaconess Medical Center, Boston, MA, USA\enspace
+$^{7}$Department of Radiation Oncology, Mayo Clinic, Rochester, MN, USA\enspace
+$^{8}$Institute of History and Ethics in Medicine, TUM School of Medicine and Health, Technical University of Munich, Munich, Germany\enspace
+$^{9}$Artificial Intelligence in Medicine Program, Mass General Brigham, Harvard Medical School, Boston, MA, USA\enspace
+$^{10}$Department of Radiation Oncology, Brigham and Women's Hospital/Dana-Farber Cancer Institute, Boston, MA, USA\enspace
+$^{11}$Department of Radiology and Imaging Sciences, Emory University, Atlanta, GA, USA\enspace
+$^{12}$Mbarara University of Science and Technology Data Science Research Hub (MUDSReH), Mbarara, Uganda\enspace
+$^{13}$College of Engineering, University of California, Berkeley, CA, USA\enspace
+$^{14}$UT MD Anderson Cancer Center UTHealth Houston Graduate School of Biomedical Sciences, Houston, TX, USA\enspace
+$^{15}$Department of Radiation Oncology, UT MD Anderson Cancer Center, Houston, TX, USA\enspace
+$^{16}$Department of Molecular Biosciences, The University of Texas at Austin, Austin, TX, USA\enspace
+$^{17}$Department of Humanities, Social, and Political Science, ETH Zurich, Zurich, Switzerland\enspace
+$^{18}$Department of Philosophy, Universitat Aut\`onoma de Barcelona, Barcelona, Spain\enspace
+$^{19}$Department of Hematology and Stem Cell Transplantation, University Hospital Essen, Essen, Germany\enspace
+$^{20}$Institute for Artificial Intelligence in Medicine, University Hospital Essen, Essen, Germany\enspace
+$^{21}$Division of Pulmonary, Critical Care and Sleep Medicine, Beth Israel Deaconess Medical Center, Boston, MA, USA\enspace
+$^{22}$Department of Biostatistics, Harvard T.H. Chan School of Public Health, Boston, MA, USA
+\par\vspace{0.2em}
+$^{*}$Corresponding Author: rgorija1@jhmi.edu
+\par
+Middle authors listed in alphabetical order by last name.
+}
+
+\end{center}
+
+\vspace{0.2em}
+
+{\small
+\textbf{Background.}
+Open health data repositories receive billions in public funding, yet no systematic framework exists to evaluate their downstream scholarly impact, the equity of the research communities they cultivate, or the breadth of disciplines they reach. We introduce a two-degree citation methodology that traces both direct citations (papers using a dataset) and indirect citations (papers citing those papers) to quantify knowledge diffusion from open data, normalized by funding. We apply this methodology to evaluate four major health data repositories. Citation metrics capture scholarly activity but not all forms of impact; findings should be interpreted alongside this limitation.
+
+\textbf{Methods.}
+We analyzed four open health data repositories spanning different designs and maturity stages: MIMIC (versions I--IV; retrospective EHR data; \$14.4M), UK Biobank (prospective cohort with genomics; \$525.5M), OpenSAFELY (federated EHR platform; \$53.7M), and All of Us (prospective national cohort with biobanking and community engagement; \$2,160M). Using the OpenAlex bibliometric database (February 2026), we identified all first-degree citing publications (\textit{n} = 30,049) and their second-degree citers (\textit{n} = 485,396). We extracted author demographics (gender, institutional country/income classification), research topics, and citation counts. Chi-square tests with odds ratios assessed equity differences.
+
+\textbf{Results.}
+Funding-normalized citation output varied widely across repositories, though differences in scope, design, and what funding covers limit direct comparisons. First-degree papers per \$1M: MIMIC 689, OpenSAFELY 116, UK Biobank 22, All of Us 1. Second-degree papers per \$1M: MIMIC 8,257, OpenSAFELY 2,314, UK Biobank 405, All of Us 14. Despite these differences, citation amplification from first- to second-degree was remarkably consistent (9.3--11.5$\times$) across all four repositories, suggesting a consistent amplification factor across repository types.
+
+Author demographics varied significantly across all repositories (\textit{p} $<$ 0.001). LMIC authorship ranged from 41.8\% (MIMIC) to 22.9\% (UK Biobank), 17.4\% (OpenSAFELY), and 4.3\% (All of Us). Female authorship showed an inverse pattern: 31.8\% (MIMIC), 38.6\% (UK Biobank), 41.7\% (OpenSAFELY), 43.2\% (All of Us). MIMIC's lower female representation likely reflects the well-documented gender gap in computer science, its dominant citing discipline (43.1\% of papers). Research from 91--148 countries cited these repositories. Disciplinary diffusion analysis revealed that MIMIC is the only repository whose primary citing field is computer science rather than medicine, while UK Biobank concentrated in biochemistry and genetics, and OpenSAFELY remained within medicine.
+
+\textbf{Conclusions.}
+Open health data generates a consistent ${\sim}$10$\times$ indirect citation amplification beyond its direct users. However, citation-based metrics favor datasets adopted as computational benchmarks and cannot capture clinical translation, capacity building, or community engagement. The large observed differences in funding-normalized output partly reflect structural differences between retrospective databases and prospective cohorts, which invest in recruitment, biobanking, and community infrastructure not captured by citations. These findings offer one lens for evaluating open data investments, but a complete assessment requires examining the research communities and knowledge ecosystems these repositories cultivate.
+}
+
+\end{document}

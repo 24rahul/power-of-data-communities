@@ -1,0 +1,5 @@
+Dataset,Total Papers,Total Authors,Male,Female,Unknown Gender,Gender Identified %,Female % (of identified),Unique Countries,HIC Authors,LMIC Authors,LMIC % (of classified),Multi-Country Papers %,HIC-LMIC Collab %,Avg Countries/Paper
+MIMIC,9924,57713,38867,18113,733,98.7,31.8,105,28759,20643,41.8,22.9,11.8,1.21
+UK-Biobank,11803,126115,76800,48362,953,99.2,38.6,134,94676,28173,22.9,45.1,16.4,1.94
+OpenSAFELY,6256,70043,40184,28772,1087,98.4,41.7,148,50583,10690,17.4,29.3,12.1,1.55
+All-of-Us,2066,21483,12118,9205,160,99.3,43.2,91,19202,871,4.3,26.4,8.4,1.53

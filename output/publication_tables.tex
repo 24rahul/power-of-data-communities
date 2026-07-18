@@ -1,0 +1,202 @@
+% Publication-Ready Tables - LaTeX Format
+% For use in journal submissions
+
+% ============================================================================
+% TABLE 2: Author Demographics
+% ============================================================================
+
+\begin{table}[htbp]
+\centering
+\caption{Author Demographics of Publications Citing Open Health Data Repositories}
+\label{tab:demographics}
+\begin{tabular}{lcccccc}
+\toprule
+Repository & Publications & Authors & Female & Countries & LMIC & HIC-LMIC \\
+           & (n)          & (n)     & (\%)$^\dagger$ & (n) & (\%)$^\ddagger$ & Collab (\%)$^\S$ \\
+\midrule
+MIMIC      & 9,924  & 57,713  & 31.8 & 105 & \textbf{41.8} & 11.8 \\
+UK Biobank & 11,803 & 126,115 & 38.6 & 134 & 22.9 & 16.4 \\
+OpenSAFELY & 6,256  & 70,043  & 41.7 & 148 & 17.4 & 12.1 \\
+All of Us  & 2,066  & 21,483  & 43.2 & 91  & 4.3  & 8.4 \\
+\midrule
+$\chi^2$ (df=3) & & & 1583.9 & & 14435.2 & \\
+\textit{p}-value & & & $<$0.001 & & $<$0.001 & \\
+\bottomrule
+\end{tabular}
+
+\smallskip
+\footnotesize
+$^\dagger$Percentage of authors with identifiable gender (identification rate $>$98\% for all repositories). \\
+$^\ddagger$Low- and middle-income countries as classified by World Bank 2024. \\
+$^\S$Percentage of publications with authors from both high-income and low/middle-income countries. \\
+Chi-square tests compare distributions across all four repositories.
+\end{table}
+
+
+% ============================================================================
+% TABLE 3: Author Position Analysis
+% ============================================================================
+
+\begin{table}[htbp]
+\centering
+\caption{Author Position Analysis by Gender and Income Classification}
+\label{tab:positions}
+\begin{tabular}{lccccc}
+\toprule
+ & \multicolumn{2}{c}{First Author} & \multicolumn{2}{c}{Last Author} & Position Effect \\
+\cmidrule(lr){2-3} \cmidrule(lr){4-5}
+Repository & Female (\%) & LMIC (\%) & Female (\%) & LMIC (\%) & Gender \textit{p}$^\|$ \\
+\midrule
+MIMIC      & 32.3 & \textbf{43.8} & 27.4 & \textbf{41.5} & $<$0.001 \\
+UK Biobank & 42.2 & 29.4 & 31.3 & 26.7 & $<$0.001 \\
+OpenSAFELY & 43.0 & 22.0 & 34.6 & 21.9 & $<$0.001 \\
+All of Us  & 42.7 & 4.1  & 37.6 & 3.0 & 0.001 \\
+\bottomrule
+\end{tabular}
+
+\smallskip
+\footnotesize
+First author typically represents the primary researcher; last author typically represents the senior/supervising investigator. \\
+$^\|$Chi-square test comparing gender distribution between first and last author positions within each dataset.
+\end{table}
+
+
+% ============================================================================
+% SUPPLEMENTARY TABLE S1: Gender by Position
+% ============================================================================
+
+\begin{table}[htbp]
+\centering
+\caption{Supplementary Table S1: Detailed Gender Distribution by Author Position}
+\label{tab:gender_position}
+\begin{tabular}{llrrr}
+\toprule
+Repository & Position & Male (n) & Female (n) & Female (\%) \\
+\midrule
+\textbf{MIMIC} & First  & 6,604  & 3,156  & 32.3 \\
+               & Middle & 25,414 & 12,371 & 32.7 \\
+               & Last   & 6,849  & 2,586  & 27.4 \\
+\addlinespace
+\textbf{UK Biobank} & First  & 6,735  & 4,927  & 42.2 \\
+                    & Middle & 62,322 & 39,914 & 39.0 \\
+                    & Last   & 7,743  & 3,521  & 31.3 \\
+\addlinespace
+\textbf{OpenSAFELY} & First  & 3,449  & 2,603  & 43.0 \\
+                    & Middle & 33,025 & 24,209 & 42.3 \\
+                    & Last   & 3,710  & 1,960  & 34.6 \\
+\addlinespace
+\textbf{All of Us}  & First  & 1,172  & 874    & 42.7 \\
+                    & Middle & 9,746  & 7,609  & 43.8 \\
+                    & Last   & 1,200  & 722    & 37.6 \\
+\bottomrule
+\end{tabular}
+
+\smallskip
+\footnotesize
+Gender inferred using Genderize.io API based on author first names.
+\end{table}
+
+
+% ============================================================================
+% SUPPLEMENTARY TABLE S2: Income by Position
+% ============================================================================
+
+\begin{table}[htbp]
+\centering
+\caption{Supplementary Table S2: Geographic Distribution by Author Position}
+\label{tab:income_position}
+\begin{tabular}{llrrr}
+\toprule
+Repository & Position & HIC (n) & LMIC (n) & LMIC (\%) \\
+\midrule
+\textbf{MIMIC} & First  & 4,710  & 3,666  & 43.8 \\
+               & Middle & 17,665 & 13,395 & 43.1 \\
+               & Last   & 4,681  & 3,320  & 41.5 \\
+\addlinespace
+\textbf{UK Biobank} & First  & 7,529  & 3,139  & 29.4 \\
+                    & Middle & 70,542 & 21,672 & 23.5 \\
+                    & Last   & 7,301  & 2,661  & 26.7 \\
+\addlinespace
+\textbf{OpenSAFELY} & First  & 4,222  & 1,192  & 22.0 \\
+                    & Middle & 39,736 & 7,936  & 16.6 \\
+                    & Last   & 3,879  & 1,088  & 21.9 \\
+\addlinespace
+\textbf{All of Us}  & First  & 1,738  & 75     & 4.1 \\
+                    & Middle & 15,010 & 656    & 4.2 \\
+                    & Last   & 1,618  & 50     & 3.0 \\
+\bottomrule
+\end{tabular}
+
+\smallskip
+\footnotesize
+HIC = High-income country; LMIC = Low- and middle-income country (World Bank 2024 classification). \\
+Country affiliation based on author institutional affiliations from OpenAlex.
+\end{table}
+
+
+% ============================================================================
+% SUPPLEMENTARY TABLE S3: Statistical Comparisons
+% ============================================================================
+
+\begin{table}[htbp]
+\centering
+\caption{Supplementary Table S3: Pairwise Statistical Comparisons (MIMIC vs Other Repositories)}
+\label{tab:statistics}
+\begin{tabular}{llrrr}
+\toprule
+Comparison & Measure & $\chi^2$ & df & \textit{p}-value \\
+\midrule
+MIMIC vs UK Biobank & LMIC representation & 5527.8 & 1 & $<$0.001 \\
+MIMIC vs UK Biobank & Gender distribution & 792.7 & 1 & $<$0.001 \\
+\addlinespace
+MIMIC vs OpenSAFELY & LMIC representation & 8156.3 & 1 & $<$0.001 \\
+MIMIC vs OpenSAFELY & Gender distribution & 1317.8 & 1 & $<$0.001 \\
+\addlinespace
+MIMIC vs All of Us & LMIC representation & 9511.7 & 1 & $<$0.001 \\
+MIMIC vs All of Us & Gender distribution & 884.3 & 1 & $<$0.001 \\
+\bottomrule
+\end{tabular}
+
+\smallskip
+\footnotesize
+All tests are Pearson's chi-square tests. All comparisons are statistically significant at $\alpha$ = 0.05.
+\end{table}
+
+
+% ============================================================================
+% SUPPLEMENTARY TABLE S4: Intersectional Analysis
+% ============================================================================
+
+\begin{table}[htbp]
+\centering
+\caption{Supplementary Table S4: Intersectional Analysis --- Authorship Position by Gender and Income Classification}
+\label{tab:intersectional}
+\begin{tabular}{llrrrrrr}
+\toprule
+ & & \multicolumn{3}{c}{HIC Authors} & \multicolumn{3}{c}{LMIC Authors} \\
+\cmidrule(lr){3-5} \cmidrule(lr){6-8}
+Repository & Position & Male & Female & Female (\%) & Male & Female & Female (\%) \\
+\midrule
+\textbf{MIMIC} & First  & 3,261  & 1,400 & 30.0 & 2,287 & 1,310 & 36.4 \\
+               & Middle & 12,423 & 5,089 & 29.1 & 8,160 & 5,081 & 38.4 \\
+               & Last   & 3,526  & 1,109 & 23.9 & 2,233 & 1,044 & 31.9 \\
+\addlinespace
+\textbf{UK Biobank} & First  & 4,424  & 3,048  & 40.8 & 1,709  & 1,384 & 44.7 \\
+                    & Middle & 43,885 & 26,271 & 37.4 & 11,842 & 9,582 & 44.7 \\
+                    & Last   & 5,130  & 2,145  & 29.5 & 1,700  & 926   & 35.3 \\
+\addlinespace
+\textbf{OpenSAFELY} & First  & 2,392  & 1,777  & 42.6 & 630   & 542 & 46.2 \\
+                    & Middle & 22,768 & 16,606 & 42.2 & 4,160 & 3,653 & 46.8 \\
+                    & Last   & 2,507  & 1,325  & 34.6 & 667   & 400   & 37.5 \\
+\addlinespace
+\textbf{All of Us}  & First  & 983   & 745   & 43.1 & 45  & 30  & 40.0 \\
+                    & Middle & 8,402 & 6,500 & 43.6 & 366 & 281 & 43.4 \\
+                    & Last   & 1,001 & 611   & 37.9 & 26  & 24  & 48.0 \\
+\bottomrule
+\end{tabular}
+
+\smallskip
+\footnotesize
+Female \% calculated within each income group (e.g., HIC Female \% = HIC Female / (HIC Male + HIC Female)). \\
+Authors with unknown gender or unclassified country income excluded.
+\end{table}
